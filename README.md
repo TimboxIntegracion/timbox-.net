@@ -1,13 +1,20 @@
 # .NET
-Ejemplo con la integración al Webservice de Timbox
+Ejemplo con la integración al Webservice de Timbox.
 
-Para integrar el Webservice al proyecto se requiere hacer uso librerias como XML, Base64:
+Se debera agregar la referencia del WSDL al proyecto, para hacer uso de los metodos expuestos en el Webservice:
+
+- [Timbox Pruebas](https://staging.ws.timbox.com.mx/timbrado/wsdl)
+
+- [Timbox Producción](https://sistema.timbox.com.mx/timbrado/wsdl)
+
+
+Para integrar el Webservice al proyecto se requiere hacer uso librerias como `XML`, `Base64`:
 
 ```
 using System.Xml;
 ```
-
-El consumo del metodo de timbrado se hace solamente creando el objeto de la clase del Webservice y llamar al metodo:
+##Timbrar CFDI
+Para hacer una petición de timbrado es necesario enviar las credenciales asignadas y enviar el xml del CFDI a timbrar convertido en una cadena en base64:
 
 ```
 //Crear el objeto cliente
@@ -20,7 +27,7 @@ TimboxWS.timbrar_cfdi_result response = new TimboxWS.timbrar_cfdi_result();
 //parametros con las credenciales y el xml en formato base64
 response = cliente_timbrar.timbrar_cfdi(user_name, password, xml_base64);
 ```
-
+##Cancelar CFDI
 Para el metodo de cancelación se necesita construir un arreglo de UUIDs a cancelar, el RFC del Emisor y construir el archivo PFX que son la union del certificado y la llave, este debe convertirse en base64 antes de enviarlo al Webservice:
 
 ```
