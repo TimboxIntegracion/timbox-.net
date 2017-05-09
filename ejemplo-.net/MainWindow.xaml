@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
-        Title="Ejemplo Conexión" Height="450" Width="600" Icon="favicon.ico">
+        Title="Ejemplo Conexión" Height="450" Width="600" Icon="favicon.ico"
+        WindowStartupLocation="CenterScreen">
     <Grid Margin="0 0 0 5">
         <TabControl>
             <TabItem Header="Timbrar" Width="150" IsSelected="{Binding TabTimbrarSelected}">

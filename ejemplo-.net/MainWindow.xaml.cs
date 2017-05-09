@@ -16,6 +16,7 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Diagnostics;
+using System.Reflection;
 
 namespace Main
 {
@@ -30,8 +31,8 @@ namespace Main
   
         private string pfxBase64 = string.Empty;
         private string pfxPassword = "12345678a";
-        private string fileStream = "\\archivoXml.xml";
-        string path = Directory.GetCurrentDirectory();
+        private string fileStream = "\\Archivos\\archivoXml.xml";
+        string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         private string xmlBase64 = string.Empty;
         private string respuesta_servicio = string.Empty;
@@ -117,6 +118,7 @@ namespace Main
         private void button_timbrar_Click(object sender, RoutedEventArgs e)
         {
             var acceso_servicio = new Servicios();
+            
             string path_xml = path + fileStream;
             xmlBase64 = acceso_servicio.sellar_cfdi(path_xml, path);
 
@@ -135,20 +137,20 @@ namespace Main
         private void button_cancelar_Click(object sender, RoutedEventArgs e)
         {
             //leer y pasar a base64 el archivo pfx
-            string path = Directory.GetCurrentDirectory();
+            string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
             //Ejecutar comandos para generar archivo pfx
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
             ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-            info.Arguments = "/C openssl pkcs12 -export -out CSD010_AAA010101AAA.pfx -in CSD010_AAA010101AAA.cer.pem -inkey CSD010_AAA010101AAA.key.pem -password pass:12345678a";
+            info.Arguments = "/C openssl pkcs12 -export -out ../../Archivos/CSD010_AAA010101AAA.pfx -in ../../Archivos/CSD010_AAA010101AAA.cer.pem -inkey ../../Archivos/CSD010_AAA010101AAA.key.pem -password pass:12345678a";
             Process.Start(info);
             proc.StartInfo = info;
             proc.Start();
             proc.WaitForExit();
             proc.Close();
 
-            byte[] fileBytes = File.ReadAllBytes(@path + "\\CSD010_AAA010101AAA.pfx");
+            byte[] fileBytes = File.ReadAllBytes(@path + "//Archivos//CSD010_AAA010101AAA.pfx");
             string base642 = Convert.ToBase64String(fileBytes);
             pfxBase64 = base642;
 
