@@ -5,17 +5,59 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
-        Title="Ejemplo Conexión" Height="347.244" Width="525" Icon="favicon.ico">
-    <Grid Margin="0,0,0,5">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="201*"/>
-            <ColumnDefinition Width="316*"/>
-        </Grid.ColumnDefinitions>
-        <Button x:Name="button_timbrar" Content="Timbrar CFDI" HorizontalAlignment="Left" Height="47" Margin="126.048,177,0,0" VerticalAlignment="Top" Width="160" Click="button_timbrar_Click" FontSize="16" Grid.Column="1"/>
-        <TextBlock x:Name="textBlock" HorizontalAlignment="Left" Height="31" Margin="10,10,0,0" TextWrapping="Wrap" Text="Bienvenido!" VerticalAlignment="Top" Width="443" FontSize="18.667" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="textBlock_Copy" HorizontalAlignment="Left" Height="32" Margin="10,86,0,0" TextWrapping="Wrap" Text="De click en el boton de la opción que desea probar:" VerticalAlignment="Top" Width="485" FontSize="18.667" Grid.ColumnSpan="2"/>
-        <TextBlock x:Name="textBlock_Copy1" Height="31" Margin="10,55,22,0" TextWrapping="Wrap" Text="Este es un ejemplo de timbrado y cancelación  de CFDI" VerticalAlignment="Top" FontSize="18.667" Grid.ColumnSpan="2"/>
-        <Button x:Name="button_cancelar" Content="Cancelar CFDI" HorizontalAlignment="Left" Height="47" Margin="126.048,232,0,0" VerticalAlignment="Top" Width="160" Click="button_cancelar_Click" FontSize="16" Grid.Column="1"/>
-
+        Title="Ejemplo Conexión" Height="450" Width="600" Icon="favicon.ico">
+    <Grid Margin="0 0 0 5">
+        <TabControl>
+            <TabItem Header="Timbrar" Width="150" IsSelected="{Binding TabTimbrarSelected}">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="201*"/>
+                            <ColumnDefinition Width="316*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="textBlockTimbrar1" HorizontalAlignment="Left" Height="31" Margin="10 10 0 0" TextWrapping="Wrap" Text="Bienvenido!" VerticalAlignment="Top" Width="443" FontSize="18.667" Grid.ColumnSpan="2"/>
+                        <TextBlock Grid.Row="1" x:Name="textBlockTimbrar2" Height="31" Margin="10 10 0 0" TextWrapping="Wrap" Text="Este es un ejemplo de timbrado de CFDI" VerticalAlignment="Top" FontSize="18.667" Grid.ColumnSpan="2"/>
+                        <TextBlock Grid.Row="2" x:Name="textBlockTimbrar3" HorizontalAlignment="Left" Height="32" Margin="10 10 0 0" TextWrapping="Wrap" Text="De click en el boton (Timbrar CFDI) para probar:" VerticalAlignment="Top" Width="485" FontSize="18.667" Grid.ColumnSpan="2"/>
+                        <Button Grid.Row="3" x:Name="button_timbrar" Content="Timbrar CFDI" HorizontalAlignment="Left" Height="47" Margin="126 10 0 0" VerticalAlignment="Top" Width="160" Click="button_timbrar_Click" FontSize="16" Grid.Column="1"/>
+                        <TextBox Grid.Row="4" Grid.RowSpan="6" Grid.ColumnSpan="2" x:Name="TextBox_resultado" IsReadOnly="True" Text="{Binding ResultadoTextBox}" TextWrapping="Wrap" MaxHeight="500" Margin="10 10 10 0" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" FontSize="16"/>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Cancelar" Width="150" IsSelected="{Binding TabCancelarSelected}">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="201*"/>
+                            <ColumnDefinition Width="316*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock x:Name="textBlockCancelar1" HorizontalAlignment="Left" Height="31" Margin="10 10 0 0" TextWrapping="Wrap" Text="Bienvenido!" VerticalAlignment="Top" Width="443" FontSize="18" Grid.ColumnSpan="2"/>
+                        <TextBlock Grid.Row="1" x:Name="textBlockCancelar2" Height="31" Margin="10 10 0 0" TextWrapping="Wrap" Text="Este es un ejemplo de cancelación  de CFDI" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="2"/>
+                        <TextBlock Grid.Row="2" x:Name="textBlockCancelar3" HorizontalAlignment="Left" Height="32" Margin="10 10 0 0" TextWrapping="Wrap" Text="De click en el boton (Cancelar CFDI) para probar:" VerticalAlignment="Top" Width="485" FontSize="18" Grid.ColumnSpan="2"/>
+                        <Label Grid.Row="3" Margin="10 20 0 0" Content="RFC:" FontSize="18"/>
+                        <TextBox Grid.Row="4" x:Name="TextBox_rfc" Grid.ColumnSpan="2" Text="{Binding rfcTextBox}" Margin="10 0 10 0" FontSize="18"/>
+                        <Label Grid.Row="5" Margin="10 10 0 0" Content="UUID:" FontSize="18"/>
+                        <TextBox Grid.Row="6" x:Name="TextBox_uuid" Grid.ColumnSpan="2" Text="{Binding uuidTextBox}" Margin="10 0 10 0" FontSize="18"/>
+                        <Button Grid.Row="7" x:Name="button_cancelar" Content="Cancelar CFDI" HorizontalAlignment="Left" Height="47" Margin="126 50 0 0" VerticalAlignment="Top" Width="160" Click="button_cancelar_Click" FontSize="16" Grid.Column="1"/>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>
