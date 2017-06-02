@@ -143,14 +143,14 @@ namespace Main
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
             ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-            info.Arguments = "/C openssl pkcs12 -export -out ../../Archivos/CSD010_AAA010101AAA.pfx -in ../../Archivos/CSD010_AAA010101AAA.cer.pem -inkey ../../Archivos/CSD010_AAA010101AAA.key.pem -password pass:12345678a";
+            info.Arguments = "/C openssl pkcs12 -export -out ../../Archivos/CSD01_AAA010101AAA.pfx -in ../../Archivos/CSD01_AAA010101AAA.cer.pem -inkey ../../Archivos/CSD01_AAA010101AAA.key.pem -password pass:12345678a";
             Process.Start(info);
             proc.StartInfo = info;
             proc.Start();
             proc.WaitForExit();
             proc.Close();
 
-            byte[] fileBytes = File.ReadAllBytes(@path + "//Archivos//CSD010_AAA010101AAA.pfx");
+            byte[] fileBytes = File.ReadAllBytes(@path + "//Archivos//CSD01_AAA010101AAA.pfx");
             string base642 = Convert.ToBase64String(fileBytes);
             pfxBase64 = base642;
 

@@ -80,13 +80,13 @@ namespace Main
                 xsl.Load(@path + "\\Archivos\\cadenaoriginal_3_2.xslt");
                 XmlTextWriter xmlwritter = new XmlTextWriter(@path + "\\Archivos\\cadena_original.txt", null);
                 xsl.Transform(archivo, null, xmlwritter);
-                string private_key = File.ReadAllText(@path + "\\Archivos\\CSD010_AAA010101AAA.key.pem");
+                string private_key = File.ReadAllText(@path + "\\Archivos\\CSD01_AAA010101AAA.key.pem");
 
                 //Ejecutar comandos para obtener obtener el sello
                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
                 ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-                info.Arguments = "/C openssl dgst -sha1 -sign ../../Archivos/CSD010_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt";
+                info.Arguments = "/C openssl dgst -sha1 -sign ../../Archivos/CSD01_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt";
                 Process.Start(info);
                 proc.StartInfo = info;
                 proc.Start();
@@ -94,7 +94,7 @@ namespace Main
                 proc.Close();
 
                 ProcessStartInfo info2 = new ProcessStartInfo("cmd.exe");
-                info2.Arguments = "/C openssl enc -in ../../Archivos/digest.txt -out ../../Archivos/sello.txt -base64 -A -K ../../Archivos/CSD010_AAA010101AAA.key.pem";
+                info2.Arguments = "/C openssl enc -in ../../Archivos/digest.txt -out ../../Archivos/sello.txt -base64 -A -K ../../Archivos/CSD01_AAA010101AAA.key.pem";
                 Process.Start(info2);
                 proc.StartInfo = info2;
                 proc.Start();
