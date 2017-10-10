@@ -12,8 +12,8 @@ namespace Main.TimboxWS {
     
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    [System.ServiceModel.ServiceContractAttribute(Namespace="urn:WashOut", ConfigurationName="TimboxWS.timbrado_port")]
-    public interface timbrado_port {
+    [System.ServiceModel.ServiceContractAttribute(Namespace="urn:WashOut", ConfigurationName="TimboxWS.timbrado_cfdi33_port")]
+    public interface timbrado_cfdi33_port {
         
         [System.ServiceModel.OperationContractAttribute(Action="timbrar_cfdi", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
@@ -44,7 +44,7 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -76,7 +76,7 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -122,7 +122,7 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -168,7 +168,7 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1067.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -200,29 +200,29 @@ namespace Main.TimboxWS {
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public interface timbrado_portChannel : Main.TimboxWS.timbrado_port, System.ServiceModel.IClientChannel {
+    public interface timbrado_cfdi33_portChannel : Main.TimboxWS.timbrado_cfdi33_port, System.ServiceModel.IClientChannel {
     }
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
-    public partial class timbrado_portClient : System.ServiceModel.ClientBase<Main.TimboxWS.timbrado_port>, Main.TimboxWS.timbrado_port {
+    public partial class timbrado_cfdi33_portClient : System.ServiceModel.ClientBase<Main.TimboxWS.timbrado_cfdi33_port>, Main.TimboxWS.timbrado_cfdi33_port {
         
-        public timbrado_portClient() {
+        public timbrado_cfdi33_portClient() {
         }
         
-        public timbrado_portClient(string endpointConfigurationName) : 
+        public timbrado_cfdi33_portClient(string endpointConfigurationName) : 
                 base(endpointConfigurationName) {
         }
         
-        public timbrado_portClient(string endpointConfigurationName, string remoteAddress) : 
+        public timbrado_cfdi33_portClient(string endpointConfigurationName, string remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public timbrado_portClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public timbrado_cfdi33_portClient(string endpointConfigurationName, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(endpointConfigurationName, remoteAddress) {
         }
         
-        public timbrado_portClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
+        public timbrado_cfdi33_portClient(System.ServiceModel.Channels.Binding binding, System.ServiceModel.EndpointAddress remoteAddress) : 
                 base(binding, remoteAddress) {
         }
         

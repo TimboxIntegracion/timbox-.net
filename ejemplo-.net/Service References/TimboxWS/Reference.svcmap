@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="https://staging.ws.timbox.com.mx/timbrado/wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="https://staging.ws.timbox.com.mx/timbrado_cfdi33/wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="timbrado.wsdl" MetadataType="Wsdl" ID="57fd5fd1-8563-4862-a8fc-f75e8735cb19" SourceId="1" SourceUrl="https://staging.ws.timbox.com.mx/timbrado/wsdl" />
+    <MetadataFile FileName="timbrado_cfdi33.wsdl" MetadataType="Wsdl" ID="ad240412-ad41-4cee-9303-581cb93520c1" SourceId="1" SourceUrl="https://staging.ws.timbox.com.mx/timbrado_cfdi33/wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

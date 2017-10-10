@@ -16,7 +16,7 @@ namespace Main
         {
             try
             {
-                TimboxWS.timbrado_portClient cliente_timbrar = new TimboxWS.timbrado_portClient();
+                TimboxWS.timbrado_cfdi33_portClient cliente_timbrar = new TimboxWS.timbrado_cfdi33_portClient();
                 TimboxWS.timbrar_cfdi_result response = new TimboxWS.timbrar_cfdi_result();
                 response = cliente_timbrar.timbrar_cfdi(user_name, password, xml_base64);
                 XmlDocument cfdi_timbrado = new XmlDocument();
@@ -39,7 +39,7 @@ namespace Main
                 string[] arr_uuids = new string[1] { uuid };
                 TimboxWS.uuid uuids = new TimboxWS.uuid();
                 uuids.uuid1 = arr_uuids;
-                TimboxWS.timbrado_port cliente_cancelar = new TimboxWS.timbrado_portClient();
+                TimboxWS.timbrado_cfdi33_port cliente_cancelar = new TimboxWS.timbrado_cfdi33_portClient();
                 TimboxWS.cancelar_cfdi_result response = new TimboxWS.cancelar_cfdi_result();
                 response = cliente_cancelar.cancelar_cfdi(user_name, password, rfc, uuids, pfx_base64, pfx_password);
                 XmlDocument acuse_cancelacion = new XmlDocument();
@@ -71,22 +71,22 @@ namespace Main
                 XmlNode node = doc_xml.DocumentElement.SelectSingleNode("//ns:Comprobante", manager);
 
                 //Se agrega la fecha actual al momento de generar cfdi
-                string fecha = node.Attributes.GetNamedItem("fecha").Value;
+                string fecha = node.Attributes.GetNamedItem("Fecha").Value;
                 string fecha_hoy = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                node.Attributes.GetNamedItem("fecha").Value = fecha_hoy;
+                node.Attributes.GetNamedItem("Fecha").Value = fecha_hoy;
                 doc_xml.Save(archivo);
 
                 XslCompiledTransform xsl = new XslCompiledTransform();
-                xsl.Load(@path + "\\Archivos\\cadenaoriginal_3_2.xslt");
+                xsl.Load(@path + "\\Archivos\\cadenaoriginal_3_3.xslt");
                 XmlTextWriter xmlwritter = new XmlTextWriter(@path + "\\Archivos\\cadena_original.txt", null);
                 xsl.Transform(archivo, null, xmlwritter);
                 string private_key = File.ReadAllText(@path + "\\Archivos\\CSD01_AAA010101AAA.key.pem");
 
                 //Ejecutar comandos para obtener obtener el sello
-                System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
                 ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-                info.Arguments = "/C openssl dgst -sha1 -sign ../../Archivos/CSD01_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt";
+                info.Arguments = "/C openssl dgst -sha256 -sign ../../Archivos/CSD01_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt";
                 Process.Start(info);
                 proc.StartInfo = info;
                 proc.Start();
@@ -103,7 +103,7 @@ namespace Main
 
                 //Una vez obtenido el sello lo incrustamos
                 string sello = File.ReadAllText(@path + "\\Archivos\\sello.txt");
-                node.Attributes.GetNamedItem("sello").Value = sello;
+                node.Attributes.GetNamedItem("Sello").Value = sello;
                 doc_xml.Save(archivo);
 
                 //conversion de xml a base64

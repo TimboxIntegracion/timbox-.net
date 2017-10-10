@@ -4,13 +4,13 @@
   <!-- Con el siguiente método se establece que la salida deberá ser en texto -->
   <xsl:output method="text" version="1.0" encoding="UTF-8" indent="no"/>
   <!--
-    En esta sección se define la inclusión de las plantillas de utilerías para colapsar espacios
-  -->
+		En esta sección se define la inclusión de las plantillas de utilerías para colapsar espacios
+	-->
   <xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/2/cadenaoriginal_2_0/utilerias.xslt"/>
   <!-- 
-    En esta sección se define la inclusión de las demás plantillas de transformación para 
-    la generación de las cadenas originales de los complementos fiscales 
-  -->
+		En esta sección se define la inclusión de las demás plantillas de transformación para 
+		la generación de las cadenas originales de los complementos fiscales 
+	-->
   <xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/EstadoDeCuentaCombustible/ecc11.xslt"/> 
   <xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/donat/donat11.xslt"/>
   <xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/divisas/divisas.xslt"/>
@@ -38,7 +38,7 @@
   <xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/Pagos/Pagos10.xslt"/>
   <xsl:include href="http://www.sat.gob.mx/sitio_internet/cfd/detallista/detallista.xslt"/>
 
-  
+	
   <!-- Aquí iniciamos el procesamiento de la cadena original con su | inicial y el terminador || -->
   <xsl:template match="/">|<xsl:apply-templates select="/cfdi:Comprobante"/>||</xsl:template>
   <!--  Aquí iniciamos el procesamiento de los datos incluidos en el comprobante -->
@@ -93,8 +93,8 @@
       <xsl:with-param name="valor" select="./@Confirmacion"/>
     </xsl:call-template>
     <!--
-      Llamadas para procesar al los sub nodos del comprobante
-    -->
+			Llamadas para procesar al los sub nodos del comprobante
+		-->
     <xsl:apply-templates select="./cfdi:CfdiRelacionados"/>
     <xsl:apply-templates select="./cfdi:Emisor"/>
     <xsl:apply-templates select="./cfdi:Receptor"/>

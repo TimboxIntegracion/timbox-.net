@@ -61,7 +61,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="CreacionConfigXml.cs" />
     <Compile Include="Service References\TimboxWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -113,7 +112,7 @@
     <None Include="Service References\TimboxWS\Main.TimboxWS.timbrar_cfdi_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\TimboxWS\timbrado.wsdl" />
+    <None Include="Service References\TimboxWS\timbrado_cfdi33.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
