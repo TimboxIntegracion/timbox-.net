@@ -57,7 +57,7 @@ namespace Main
             }
         }
 
-        public string sellar_cfdi(string archivo, string path)
+        public string generar_sello(string archivo, string path)
         {
             try
             {

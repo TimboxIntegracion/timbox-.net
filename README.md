@@ -14,6 +14,19 @@ Para integrar el Webservice al proyecto se requiere hacer uso librerías como `X
 using System.Xml;
 ```
 ##Timbrar CFDI
+### Generacion de Sello
+Para generar el sello se necesita: la llave privada (.key) en formato PEM. También es necesario incluir el XSLT del SAT para poder transformar el XML y obtener la cadena original.
+
+La cadena original se utiliza para obtener el digest, usando comandos de OpenSSL, luego se utiliza el digest y la llave privada para obtener el sello.
+
+Una vez generado el sello, se actualiza en el XML para que este sea codificado y enviado al servicio de timbrado.
+Esto se logra mandando llamar el método de generar_sello en la clase de Servicios:
+```
+var acceso_servicio = new Servicios();
+...
+xmlBase64 = acceso_servicio.generar_sello(path_xml, path);
+```
+###Timbrado
 Para hacer una petición de timbrado es necesario enviar las credenciales asignadas y enviar el xml del CFDI a timbrar convertido en una cadena en base64:
 
 ```

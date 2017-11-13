@@ -120,7 +120,7 @@ namespace Main
             var acceso_servicio = new Servicios();
             
             string path_xml = path + fileStream;
-            xmlBase64 = acceso_servicio.sellar_cfdi(path_xml, path);
+            xmlBase64 = acceso_servicio.generar_sello(path_xml, path);
 
             if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(xmlBase64))
             {
