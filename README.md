@@ -15,7 +15,7 @@ using System.Xml;
 ```
 ## Timbrar CFDI
 ### Generacion de Sello
-Para generar el sello se necesita: la llave privada (.key) en formato PEM. También es necesario incluir el XSLT del SAT para poder transformar el XML y obtener la cadena original.
+Para generar el sello se necesita: la llave privada (.key) en formato PEM y el XSLT del SAT (cadenaoriginal_3_3.xslt).El XSLT del SAT se utiliza para poder transformar el XML y obtener la cadena original.
 
 La cadena original se utiliza para obtener el digest, usando comandos de OpenSSL, luego se utiliza el digest y la llave privada para obtener el sello.
 
