@@ -141,13 +141,17 @@ namespace Main
 
             //Ejecutar comandos para generar archivo pfx
             System.Diagnostics.Process proc = new System.Diagnostics.Process();
-
-            ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-            info.Arguments = "/C openssl pkcs12 -export -out ../../Archivos/CSD01_AAA010101AAA.pfx -in ../../Archivos/CSD01_AAA010101AAA.cer.pem -inkey ../../Archivos/CSD01_AAA010101AAA.key.pem -password pass:12345678a";
-            Process.Start(info);
-            proc.StartInfo = info;
+            proc.StartInfo.FileName = "cmd.exe";
+            proc.StartInfo.RedirectStandardInput = true;
+            proc.StartInfo.RedirectStandardOutput = true;
+            proc.StartInfo.CreateNoWindow = true;
+            proc.StartInfo.UseShellExecute = false;
             proc.Start();
+            proc.StandardInput.WriteLine("openssl pkcs12 -export -out ../../Archivos/CSD01_AAA010101AAA.pfx -in ../../Archivos/CSD01_AAA010101AAA.cer.pem -inkey ../../Archivos/CSD01_AAA010101AAA.key.pem -password pass:12345678a");
+            proc.StandardInput.Flush();
+            proc.StandardInput.Close();
             proc.WaitForExit();
+	    Console.WriteLine(proc.StandardOutput.ReadToEnd());
             proc.Close();
 
             byte[] fileBytes = File.ReadAllBytes(@path + "//Archivos//CSD01_AAA010101AAA.pfx");

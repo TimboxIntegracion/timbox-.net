@@ -83,22 +83,28 @@ namespace Main
                 string private_key = File.ReadAllText(@path + "\\Archivos\\CSD01_AAA010101AAA.key.pem");
 
                 //Ejecutar comandos para obtener obtener el sello
-                 System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                //System.Diagnostics.Process proc = new System.Diagnostics.Process();
 
-                ProcessStartInfo info = new ProcessStartInfo("cmd.exe");
-                info.Arguments = "/C openssl dgst -sha256 -sign ../../Archivos/CSD01_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt";
-                Process.Start(info);
-                proc.StartInfo = info;
+                Process proc = new Process();
+                proc.StartInfo.FileName = "cmd.exe";
+                proc.StartInfo.RedirectStandardInput = true;
+                proc.StartInfo.RedirectStandardOutput = true;
+                proc.StartInfo.CreateNoWindow = true;
+                proc.StartInfo.UseShellExecute = false;
                 proc.Start();
-                proc.WaitForExit();
-                proc.Close();
 
-                ProcessStartInfo info2 = new ProcessStartInfo("cmd.exe");
-                info2.Arguments = "/C openssl enc -in ../../Archivos/digest.txt -out ../../Archivos/sello.txt -base64 -A -K ../../Archivos/CSD01_AAA010101AAA.key.pem";
-                Process.Start(info2);
-                proc.StartInfo = info2;
-                proc.Start();
+                proc.StandardInput.WriteLine("openssl dgst -sha256 -sign ../../Archivos/CSD01_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt");
+                proc.StandardInput.Flush();
+                proc.StandardInput.Close();
                 proc.WaitForExit();
+                Console.WriteLine(proc.StandardOutput.ReadToEnd());
+
+                proc.Start();
+                proc.StandardInput.WriteLine("openssl enc -in ../../Archivos/digest.txt -out ../../Archivos/sello.txt -base64 -A -K ../../Archivos/CSD01_AAA010101AAA.key.pem");
+                proc.StandardInput.Flush();
+                proc.StandardInput.Close();
+                proc.WaitForExit();
+		Console.WriteLine(proc.StandardOutput.ReadToEnd());
                 proc.Close();
 
                 //Una vez obtenido el sello lo incrustamos
