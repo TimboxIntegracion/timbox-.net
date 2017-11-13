@@ -13,7 +13,7 @@ Para integrar el Webservice al proyecto se requiere hacer uso librerías como `X
 ```
 using System.Xml;
 ```
-##Timbrar CFDI
+## Timbrar CFDI
 ### Generacion de Sello
 Para generar el sello se necesita: la llave privada (.key) en formato PEM. También es necesario incluir el XSLT del SAT para poder transformar el XML y obtener la cadena original.
 
@@ -26,7 +26,7 @@ var acceso_servicio = new Servicios();
 ...
 xmlBase64 = acceso_servicio.generar_sello(path_xml, path);
 ```
-###Timbrado
+### Timbrado
 Para hacer una petición de timbrado es necesario enviar las credenciales asignadas y enviar el xml del CFDI a timbrar convertido en una cadena en base64:
 
 ```
@@ -40,7 +40,7 @@ TimboxWS.timbrar_cfdi_result response = new TimboxWS.timbrar_cfdi_result();
 //parámetros con las credenciales y el xml en formato base64
 response = cliente_timbrar.timbrar_cfdi(user_name, password, xml_base64);
 ```
-##Cancelar CFDI
+## Cancelar CFDI
 Para el método de cancelación se necesita construir un arreglo de UUIDs a cancelar, el RFC del Emisor y construir el archivo PFX que son la unión del certificado y la llave, este debe convertirse en base64 antes de enviarlo al Webservice:
 
 ```
