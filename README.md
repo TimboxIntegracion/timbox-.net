@@ -15,9 +15,9 @@ using System.Xml;
 ```
 ## Timbrar CFDI
 ### Generacion de Sello
-Para generar el sello se necesita: la llave privada (.key) en formato PEM y el XSLT del SAT (cadenaoriginal_3_3.xslt).El XSLT del SAT se utiliza para poder transformar el XML y obtener la cadena original.
+Para generar el sello se necesita: El archivo *.pfx y el XSLT del SAT (cadenaoriginal_3_3.xslt).El XSLT del SAT se utiliza para poder transformar el XML y obtener la cadena original.
 
-La cadena original se utiliza para obtener el digest, usando comandos de OpenSSL, luego se utiliza el digest y la llave privada para obtener el sello.
+La cadena original se utiliza para obtener el sello, utilizando la libreria de encriptación de .NET (System.Security.Cryptography) y se codifica en base64. 
 
 Una vez generado el sello, se actualiza en el XML para que este sea codificado y enviado al servicio de timbrado.
 Esto se logra mandando llamar el método de generar_sello en la clase de Servicios:
