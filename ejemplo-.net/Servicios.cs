@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Xsl;
+using System.Security.Cryptography;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Main
 {
@@ -80,36 +82,33 @@ namespace Main
                 xsl.Load(@path + "\\Archivos\\cadenaoriginal_3_3.xslt");
                 XmlTextWriter xmlwritter = new XmlTextWriter(@path + "\\Archivos\\cadena_original.txt", null);
                 xsl.Transform(archivo, null, xmlwritter);
+                xmlwritter.Close();
                 string private_key = File.ReadAllText(@path + "\\Archivos\\CSD01_AAA010101AAA.key.pem");
 
                 //Ejecutar comandos para obtener obtener el sello
                 //System.Diagnostics.Process proc = new System.Diagnostics.Process();
+                string password = "12345678a";
+                X509Certificate2 cert = new X509Certificate2(@path + "/Archivos/CSD01_AAA010101AAA.pfx", password);
+                RSACryptoServiceProvider key = (RSACryptoServiceProvider)cert.PrivateKey;
 
-                Process proc = new Process();
-                proc.StartInfo.FileName = "cmd.exe";
-                proc.StartInfo.RedirectStandardInput = true;
-                proc.StartInfo.RedirectStandardOutput = true;
-                proc.StartInfo.CreateNoWindow = true;
-                proc.StartInfo.UseShellExecute = false;
-                proc.Start();
+                CspParameters cspParam = new CspParameters();
+                cspParam.KeyContainerName = key.CspKeyContainerInfo.KeyContainerName;
+                cspParam.KeyNumber = key.CspKeyContainerInfo.KeyNumber == KeyNumber.Exchange ? 1 : 2;
 
-                proc.StandardInput.WriteLine("openssl dgst -sha256 -sign ../../Archivos/CSD01_AAA010101AAA.key.pem -out ../../Archivos/digest.txt ../../Archivos/cadena_original.txt");
-                proc.StandardInput.Flush();
-                proc.StandardInput.Close();
-                proc.WaitForExit();
-                Console.WriteLine(proc.StandardOutput.ReadToEnd());
+                RSACryptoServiceProvider key2 = new RSACryptoServiceProvider(cspParam);
+                key2.PersistKeyInCsp = false;
 
-                proc.Start();
-                proc.StandardInput.WriteLine("openssl enc -in ../../Archivos/digest.txt -out ../../Archivos/sello.txt -base64 -A -K ../../Archivos/CSD01_AAA010101AAA.key.pem");
-                proc.StandardInput.Flush();
-                proc.StandardInput.Close();
-                proc.WaitForExit();
-		Console.WriteLine(proc.StandardOutput.ReadToEnd());
-                proc.Close();
+                SHA256Managed sha256 = new SHA256Managed();
+                UnicodeEncoding encoding = new UnicodeEncoding();
+                byte[] cadenaOriginal = File.ReadAllBytes(@path + "\\Archivos\\cadena_original.txt");
+                sha256.ComputeHash(cadenaOriginal);
+                byte[] hash = sha256.ComputeHash(cadenaOriginal);
+                string sha256id = CryptoConfig.MapNameToOID("SHA256");
+                byte[] sello_bytes = key2.SignHash(hash, sha256id);
+                string sello_str = Convert.ToBase64String(sello_bytes);
 
-                //Una vez obtenido el sello lo incrustamos
-                string sello = File.ReadAllText(@path + "\\Archivos\\sello.txt");
-                node.Attributes.GetNamedItem("Sello").Value = sello;
+
+                node.Attributes.GetNamedItem("Sello").Value = sello_str;
                 doc_xml.Save(archivo);
 
                 //conversion de xml a base64
