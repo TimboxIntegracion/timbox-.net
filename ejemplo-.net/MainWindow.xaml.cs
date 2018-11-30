@@ -46,7 +46,7 @@ namespace Main
         private List<FoliosRespuestas> folios_respuestas;
 
 
-        // PROPIEDADES
+        //PROPIEDADES
         private string _rfcTextBox;
         public string rfcTextBox
         {
@@ -167,6 +167,7 @@ namespace Main
             respuesta_cancelar = acceso_servicio.cancelar_cfdi(userName, password, rfc_emisor, folios, file_cer_pem, file_key_pem);
             MessageBox.Show(respuesta_cancelar, "Cancelar CFDI");
         }
+
 
         private void button_get_uuids_Click(object sender, RoutedEventArgs e)
         {
