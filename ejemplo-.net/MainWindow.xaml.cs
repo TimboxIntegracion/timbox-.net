@@ -17,6 +17,7 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Soap;
 using System.Diagnostics;
 using System.Reflection;
+using System.Data;
 
 namespace Main
 {
@@ -31,14 +32,21 @@ namespace Main
   
         private string pfxBase64 = string.Empty;
         private string pfxPassword = "12345678a";
-        private string fileStream = "\\Archivos\\archivoXml.xml";
+        private string fileStream = "\\Archivos\\ejemplo_cfdi_33_cancelada_con_aceptacion.xml";
         string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         private string xmlBase64 = string.Empty;
         private string respuesta_servicio = string.Empty;
         private string respuesta_cancelar = string.Empty;
+        private string respuesta_consultar = string.Empty;
+        private string respuesta_pendientes = string.Empty;
+        private string respuesta_relacionados = string.Empty;
+        private string respuesta_procesar = string.Empty;
+        private List<FoliosCancelar> folios;
+        private List<FoliosRespuestas> folios_respuestas;
 
-        //PROPIEDADES
+
+        // PROPIEDADES
         private string _rfcTextBox;
         public string rfcTextBox
         {
@@ -107,14 +115,26 @@ namespace Main
             }
         }
 
-        //CONSTRUCTOR
+        // CONSTRUCTOR
         public MainWindow()
         {
             DataContext = this;
             InitializeComponent();
+
+            // Folios a cancelar
+            folios = new List<FoliosCancelar>();
+            folios.Add(new FoliosCancelar() { Uuid = "F0B60888-BC93-4851-A345-03C238572A8D", Rfc_receptor = "IAD121214B34", Total = "7261.60" });
+            folios.Add(new FoliosCancelar() { Uuid = "9DDC4AB6-F1A0-4D03-B65B-39776883BA2C", Rfc_receptor = "IAD121214B34", Total = "7261.60" });
+            
+            // Folios a procesar respuesta
+            // A(Aceptar la solicitud), R(Rechazar la solicitud)
+            folios_respuestas = new List<FoliosRespuestas>();
+            folios_respuestas.Add(new FoliosRespuestas() { Uuid = "F0B60888-BC93-4851-A345-03C238572A8D", Rfc_emisor = "AAA010101AAA", Total = "7261.60", Respuesta = "A" });
+            folios_respuestas.Add(new FoliosRespuestas() { Uuid = "9DDC4AB6-F1A0-4D03-B65B-39776883BA2C", Rfc_emisor = "AAA010101AAA", Total = "7261.60", Respuesta = "R" });
+
         }
 
-        //EVENTOS
+        // EVENTOS
         private void button_timbrar_Click(object sender, RoutedEventArgs e)
         {
             var acceso_servicio = new Servicios();
@@ -136,37 +156,140 @@ namespace Main
 
         private void button_cancelar_Click(object sender, RoutedEventArgs e)
         {
-            //leer y pasar a base64 el archivo pfx
+            string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string rfc_emisor = "AAA010101AAA";
+
+            string file_cer_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.cer.pem");
+            string file_key_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.key.pem");
+            getDataFolios();
+
+            var acceso_servicio = new Servicios();
+            respuesta_cancelar = acceso_servicio.cancelar_cfdi(userName, password, rfc_emisor, folios, file_cer_pem, file_key_pem);
+            MessageBox.Show(respuesta_cancelar, "Cancelar CFDI");
+        }
+
+        private void button_get_uuids_Click(object sender, RoutedEventArgs e)
+        {
+            getDataFolios();
+        }
+
+        private void getDataFoliosRespuestas()
+        {
+
+            dataProcesarGrid1.Items.Clear();
+            foreach (var i in folios_respuestas)
+            {
+                var data = new { uuid_procesar_grid = i.Uuid, rfcemisor_procesar_grid = i.Rfc_emisor, total_procesar_grid = i.Total, respuesta_procesar_grid = i.Respuesta };
+                dataProcesarGrid1.Items.Add(data);
+            }
+        }
+        private void getDataFolios()
+        {
+            dataGrid1.Items.Clear();
+            foreach (var i in folios)
+            {
+                var data = new { uuid_grid = i.Uuid, rfcreceptor_grid = i.Rfc_receptor, total_grid = i.Total };
+                dataGrid1.Items.Add(data);
+            }
+        }
+
+        private void button_consultar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!string.IsNullOrEmpty(TextBox_uuid.Text) && !string.IsNullOrEmpty(TextBox_rfc_emisor.Text) && !string.IsNullOrEmpty(TextBox_rfc_receptor.Text) && !string.IsNullOrEmpty(TextBox_total.Text))
+            {
+                var acceso_servicio = new Servicios();
+                respuesta_consultar = acceso_servicio.consultar_estatus(userName, password, TextBox_uuid.Text, TextBox_rfc_emisor.Text, TextBox_rfc_receptor.Text, TextBox_total.Text);
+                MessageBox.Show(respuesta_consultar, "Consultar Estatus de CFDI");
+            }
+            else
+            {
+                MessageBox.Show("Por favor capture el UUID, RFC (Emisor o Receptor) y Total correctamente", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
+        }
+
+        private void button_consultar_peticiones_Click(object sender, RoutedEventArgs e)
+        {
+
             string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
-            //Ejecutar comandos para generar archivo pfx
-            System.Diagnostics.Process proc = new System.Diagnostics.Process();
-            proc.StartInfo.FileName = "cmd.exe";
-            proc.StartInfo.RedirectStandardInput = true;
-            proc.StartInfo.RedirectStandardOutput = true;
-            proc.StartInfo.CreateNoWindow = true;
-            proc.StartInfo.UseShellExecute = false;
-            proc.Start();
-            proc.StandardInput.WriteLine("openssl pkcs12 -export -out ../../Archivos/CSD01_AAA010101AAA.pfx -in ../../Archivos/CSD01_AAA010101AAA.cer.pem -inkey ../../Archivos/CSD01_AAA010101AAA.key.pem -password pass:12345678a");
-            proc.StandardInput.Flush();
-            proc.StandardInput.Close();
-            proc.WaitForExit();
-	    Console.WriteLine(proc.StandardOutput.ReadToEnd());
-            proc.Close();
+            string rfc_receptor = "AAA010101AAA";
+            string file_cer_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.cer.pem");
+            string file_key_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.key.pem");
 
-            byte[] fileBytes = File.ReadAllBytes(@path + "//Archivos//CSD01_AAA010101AAA.pfx");
-            string base642 = Convert.ToBase64String(fileBytes);
-            pfxBase64 = base642;
+            //string file_cer_pem = File.ReadAllText(@path + "//Archivos//cer_pem_content.txt");
+            //string file_key_pem = File.ReadAllText(@path + "//Archivos//key_pem_content.txt");
+            //userName = "IAD121214B34";
+            //password = "gWgsRb4ixU_xUQRi6H7H";
+            //string rfc_receptor = "PZA000413788";
+
+            var acceso_servicio = new Servicios();
+            respuesta_pendientes = acceso_servicio.consultar_penticiones_pendientes(userName, password, rfc_receptor, file_cer_pem, file_key_pem);
+            MessageBox.Show(respuesta_pendientes, "Peticiones Pendientes CFDI");
+
+        }
+
+        private void button_procesar_Click(object sender, RoutedEventArgs e)
+        {
+            //leer y pasar a base64 el archivo pfx
+            string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string rfc_receptor = "AAA010101AAA";
+
+            string file_cer_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.cer.pem");
+            string file_key_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.key.pem");
+            getDataFoliosRespuestas();
+
+            var acceso_servicio = new Servicios();
+            respuesta_procesar = acceso_servicio.procesar_respuesta(userName, password, rfc_receptor, folios_respuestas, file_cer_pem, file_key_pem);
+            MessageBox.Show(respuesta_procesar, "Procesar CFDI");
+        }
+
+        private void button_get_uuids_procesar_Click(object sender, RoutedEventArgs e)
+        {
+            getDataFoliosRespuestas();
+        }
+
+
+        private void button_consultar_relacionados_Click(object sender, RoutedEventArgs e)
+        {
+            string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+
+            string rfc_receptor = "AAA010101AAA";
+            string file_cer_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.cer.pem");
+            string file_key_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.key.pem");
+
+
+            //string file_cer_pem = File.ReadAllText(@path + "//Archivos//cer_pem_content.txt");
+            //string file_key_pem = File.ReadAllText(@path + "//Archivos//key_pem_content.txt");
+            //userName = "IAD121214B34";
+            //password = "gWgsRb4ixU_xUQRi6H7H";
+            //string rfc_receptor = "PZA000413788";
 
             var acceso_servicio = new Servicios();
 
-            if (!string.IsNullOrEmpty(userName) && !string.IsNullOrEmpty(password) && !string.IsNullOrEmpty(rfcTextBox) && !string.IsNullOrEmpty(uuidTextBox) && !string.IsNullOrEmpty(pfxBase64) && !string.IsNullOrEmpty(pfxPassword))
+            if (!string.IsNullOrEmpty(TextBox_uuid_Relacionados.Text))
             {
-                respuesta_cancelar = acceso_servicio.cancelar_cfdi(userName, password, rfcTextBox, uuidTextBox, pfxBase64, pfxPassword);
-                MessageBox.Show(respuesta_cancelar, "Cancelar CFDI");
+                respuesta_relacionados = acceso_servicio.consultar_relacionados(userName, password, TextBox_uuid_Relacionados.Text, rfc_receptor, file_cer_pem, file_key_pem);
+                MessageBox.Show(respuesta_relacionados, "Consultar Documentos Relacionados");
             }
             else
-                MessageBox.Show("Por favor capture el RFC del emisor & UUID del CFDI", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            {
+                MessageBox.Show("Por favor capture el UUID", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            
+        }
+
+        private void button_timbrar_limpiar_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox_resultado.Text = String.Empty;
+        }
+
+        private void TextBox_resultado_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
+
+        private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
         }
     }
 }

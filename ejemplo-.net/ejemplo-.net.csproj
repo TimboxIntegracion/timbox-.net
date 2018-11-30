@@ -62,6 +62,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataListConverter.cs" />
+    <Compile Include="FoliosCancelar.cs" />
+    <Compile Include="FoliosRespuestas.cs" />
+    <Compile Include="Service References\TimboxWSCancelacion\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\TimboxWS\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -99,29 +107,69 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="ClassDiagram3.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
-    <None Include="Service References\TimboxWS\Main.TimboxWS.cancelar_cfdi_certs_result.datasource">
+    <None Include="Service References\TimboxWSCancelacion\cancelacion.wsdl" />
+    <None Include="Service References\TimboxWSCancelacion\Main.TimboxWSCancelacion.cancelar_cfdi_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
-    <None Include="Service References\TimboxWS\Main.TimboxWS.cancelar_cfdi_result.datasource">
+    <None Include="Service References\TimboxWSCancelacion\Main.TimboxWSCancelacion.consultar_documento_relacionado_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWSCancelacion\Main.TimboxWSCancelacion.consultar_estatus_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWSCancelacion\Main.TimboxWSCancelacion.consultar_peticiones_pendientes_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWSCancelacion\Main.TimboxWSCancelacion.procesar_respuesta_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.buscar_acuse_recepcion_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.buscar_cfdis_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.consulta_rfc_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.obtener_consumo_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.recuperar_comprobante_referencia.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.recuperar_comprobante_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.timbrar_cfdi_referencia_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Service References\TimboxWS\Main.TimboxWS.timbrar_cfdi_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Service References\TimboxWS\Main.TimboxWS.timbrar_zip_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Service References\TimboxWS\timbrado_cfdi33.wsdl" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TimboxWSCancelacion\" />
     <WCFMetadataStorage Include="Service References\TimboxWS\" />
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +187,18 @@
   <ItemGroup>
     <Resource Include="favicon.ico" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Service References\TimboxWSCancelacion\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimboxWSCancelacion\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimboxWSCancelacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

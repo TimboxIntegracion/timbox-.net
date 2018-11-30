@@ -24,27 +24,81 @@ namespace Main.TimboxWS {
         [return: System.ServiceModel.MessageParameterAttribute(Name="timbrar_cfdi_result")]
         System.Threading.Tasks.Task<Main.TimboxWS.timbrar_cfdi_result> timbrar_cfdiAsync(string username, string password, string sxml);
         
-        [System.ServiceModel.OperationContractAttribute(Action="cancelar_cfdi", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="timbrar_cfdi_referencia", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="cancelar_cfdi_result")]
-        Main.TimboxWS.cancelar_cfdi_result cancelar_cfdi(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string pfxbase64, string pfxpassword);
+        [return: System.ServiceModel.MessageParameterAttribute(Name="timbrar_cfdi_referencia_result")]
+        Main.TimboxWS.timbrar_cfdi_referencia_result timbrar_cfdi_referencia(string username, string password, string sxml, string external_id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="cancelar_cfdi", ReplyAction="*")]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="cancelar_cfdi_result")]
-        System.Threading.Tasks.Task<Main.TimboxWS.cancelar_cfdi_result> cancelar_cfdiAsync(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string pfxbase64, string pfxpassword);
+        [System.ServiceModel.OperationContractAttribute(Action="timbrar_cfdi_referencia", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="timbrar_cfdi_referencia_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.timbrar_cfdi_referencia_result> timbrar_cfdi_referenciaAsync(string username, string password, string sxml, string external_id);
         
-        [System.ServiceModel.OperationContractAttribute(Action="cancelar_cfdi_certs", ReplyAction="*")]
+        [System.ServiceModel.OperationContractAttribute(Action="timbrar_zip", ReplyAction="*")]
         [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="cancelar_cfdi_certs_result")]
-        Main.TimboxWS.cancelar_cfdi_certs_result cancelar_cfdi_certs(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string cert_pem, string llave_pem, string llave_password);
+        [return: System.ServiceModel.MessageParameterAttribute(Name="timbrar_zip_result")]
+        Main.TimboxWS.timbrar_zip_result timbrar_zip(string username, string password, string zipbase64);
         
-        [System.ServiceModel.OperationContractAttribute(Action="cancelar_cfdi_certs", ReplyAction="*")]
-        [return: System.ServiceModel.MessageParameterAttribute(Name="cancelar_cfdi_certs_result")]
-        System.Threading.Tasks.Task<Main.TimboxWS.cancelar_cfdi_certs_result> cancelar_cfdi_certsAsync(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string cert_pem, string llave_pem, string llave_password);
+        [System.ServiceModel.OperationContractAttribute(Action="timbrar_zip", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="timbrar_zip_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.timbrar_zip_result> timbrar_zipAsync(string username, string password, string zipbase64);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="buscar_cfdis", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="buscar_cfdis_result")]
+        Main.TimboxWS.buscar_cfdis_result buscar_cfdis(string username, string password, Main.TimboxWS.parametros_cfdis parametros_cfdis);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="buscar_cfdis", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="buscar_cfdis_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.buscar_cfdis_result> buscar_cfdisAsync(string username, string password, Main.TimboxWS.parametros_cfdis parametros_cfdis);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="buscar_acuse_recepcion", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="buscar_acuse_recepcion_result")]
+        Main.TimboxWS.buscar_acuse_recepcion_result buscar_acuse_recepcion(string username, string password, Main.TimboxWS.parametros_acuse parametros_acuse);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="buscar_acuse_recepcion", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="buscar_acuse_recepcion_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.buscar_acuse_recepcion_result> buscar_acuse_recepcionAsync(string username, string password, Main.TimboxWS.parametros_acuse parametros_acuse);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="recuperar_comprobante", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="recuperar_comprobante_result")]
+        Main.TimboxWS.recuperar_comprobante_result recuperar_comprobante(string username, string password, Main.TimboxWS.uuid uuids);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="recuperar_comprobante", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="recuperar_comprobante_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.recuperar_comprobante_result> recuperar_comprobanteAsync(string username, string password, Main.TimboxWS.uuid uuids);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="recuperar_comprobante_referencia", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="recuperar_comprobante_referencia")]
+        Main.TimboxWS.recuperar_comprobante_referencia recuperar_comprobante_referencia(string username, string password, Main.TimboxWS.external_id external_ids);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="recuperar_comprobante_referencia", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="recuperar_comprobante_referencia")]
+        System.Threading.Tasks.Task<Main.TimboxWS.recuperar_comprobante_referencia> recuperar_comprobante_referenciaAsync(string username, string password, Main.TimboxWS.external_id external_ids);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="obtener_consumo", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="obtener_consumo_result")]
+        Main.TimboxWS.obtener_consumo_result obtener_consumo(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="obtener_consumo", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="obtener_consumo_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.obtener_consumo_result> obtener_consumoAsync(string username, string password);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="consulta_rfc", ReplyAction="*")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(Style=System.ServiceModel.OperationFormatStyle.Rpc, SupportFaults=true, Use=System.ServiceModel.OperationFormatUse.Encoded)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="consulta_rfc_result")]
+        Main.TimboxWS.consulta_rfc_result consulta_rfc(string username, string password, string rfc);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="consulta_rfc", ReplyAction="*")]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="consulta_rfc_result")]
+        System.Threading.Tasks.Task<Main.TimboxWS.consulta_rfc_result> consulta_rfcAsync(string username, string password, string rfc);
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -76,38 +130,52 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
-    public partial class cancelar_cfdi_certs_result : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class consulta_rfc_result : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string acuse_cancelacionField;
+        private string codigoField;
         
-        private string comprobantes_canceladosField;
+        private string statusField;
+        
+        private string informacionField;
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string acuse_cancelacion {
+        public string codigo {
             get {
-                return this.acuse_cancelacionField;
+                return this.codigoField;
             }
             set {
-                this.acuse_cancelacionField = value;
-                this.RaisePropertyChanged("acuse_cancelacion");
+                this.codigoField = value;
+                this.RaisePropertyChanged("codigo");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string comprobantes_cancelados {
+        public string status {
             get {
-                return this.comprobantes_canceladosField;
+                return this.statusField;
             }
             set {
-                this.comprobantes_canceladosField = value;
-                this.RaisePropertyChanged("comprobantes_cancelados");
+                this.statusField = value;
+                this.RaisePropertyChanged("status");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string informacion {
+            get {
+                return this.informacionField;
+            }
+            set {
+                this.informacionField = value;
+                this.RaisePropertyChanged("informacion");
             }
         }
         
@@ -122,38 +190,80 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
-    public partial class cancelar_cfdi_result : object, System.ComponentModel.INotifyPropertyChanged {
+    public partial class obtener_consumo_result : object, System.ComponentModel.INotifyPropertyChanged {
         
-        private string acuse_cancelacionField;
+        private string plan_actualField;
         
-        private string comprobantes_canceladosField;
+        private System.Nullable<int> creditos_asignadosField;
+        
+        private System.Nullable<int> creditos_usadosField;
+        
+        private string inicio_planField;
+        
+        private string fin_planField;
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string acuse_cancelacion {
+        public string plan_actual {
             get {
-                return this.acuse_cancelacionField;
+                return this.plan_actualField;
             }
             set {
-                this.acuse_cancelacionField = value;
-                this.RaisePropertyChanged("acuse_cancelacion");
+                this.plan_actualField = value;
+                this.RaisePropertyChanged("plan_actual");
             }
         }
         
         /// <remarks/>
         [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
-        public string comprobantes_cancelados {
+        public System.Nullable<int> creditos_asignados {
             get {
-                return this.comprobantes_canceladosField;
+                return this.creditos_asignadosField;
             }
             set {
-                this.comprobantes_canceladosField = value;
-                this.RaisePropertyChanged("comprobantes_cancelados");
+                this.creditos_asignadosField = value;
+                this.RaisePropertyChanged("creditos_asignados");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public System.Nullable<int> creditos_usados {
+            get {
+                return this.creditos_usadosField;
+            }
+            set {
+                this.creditos_usadosField = value;
+                this.RaisePropertyChanged("creditos_usados");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string inicio_plan {
+            get {
+                return this.inicio_planField;
+            }
+            set {
+                this.inicio_planField = value;
+                this.RaisePropertyChanged("inicio_plan");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fin_plan {
+            get {
+                return this.fin_planField;
+            }
+            set {
+                this.fin_planField = value;
+                this.RaisePropertyChanged("fin_plan");
             }
         }
         
@@ -168,7 +278,219 @@ namespace Main.TimboxWS {
     }
     
     /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.2114.0")]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class recuperar_comprobante_referencia : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string estatusField;
+        
+        private string cantidadField;
+        
+        private string comprobantesField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string estatus {
+            get {
+                return this.estatusField;
+            }
+            set {
+                this.estatusField = value;
+                this.RaisePropertyChanged("estatus");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                this.cantidadField = value;
+                this.RaisePropertyChanged("cantidad");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string comprobantes {
+            get {
+                return this.comprobantesField;
+            }
+            set {
+                this.comprobantesField = value;
+                this.RaisePropertyChanged("comprobantes");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class external_id : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string[] external_id1Field;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute("external_id", IsNullable=true)]
+        public string[] external_id1 {
+            get {
+                return this.external_id1Field;
+            }
+            set {
+                this.external_id1Field = value;
+                this.RaisePropertyChanged("external_id1");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class recuperar_comprobante_result : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string estatusField;
+        
+        private string cantidadField;
+        
+        private string comprobantesField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string estatus {
+            get {
+                return this.estatusField;
+            }
+            set {
+                this.estatusField = value;
+                this.RaisePropertyChanged("estatus");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                this.cantidadField = value;
+                this.RaisePropertyChanged("cantidad");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string comprobantes {
+            get {
+                return this.comprobantesField;
+            }
+            set {
+                this.comprobantesField = value;
+                this.RaisePropertyChanged("comprobantes");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class buscar_acuse_recepcion_result : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string acusesField;
+        
+        private uuid uuids_erroneosField;
+        
+        private uuid uuids_no_encontradosField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string acuses {
+            get {
+                return this.acusesField;
+            }
+            set {
+                this.acusesField = value;
+                this.RaisePropertyChanged("acuses");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public uuid uuids_erroneos {
+            get {
+                return this.uuids_erroneosField;
+            }
+            set {
+                this.uuids_erroneosField = value;
+                this.RaisePropertyChanged("uuids_erroneos");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public uuid uuids_no_encontrados {
+            get {
+                return this.uuids_no_encontradosField;
+            }
+            set {
+                this.uuids_no_encontradosField = value;
+                this.RaisePropertyChanged("uuids_no_encontrados");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -186,6 +508,390 @@ namespace Main.TimboxWS {
             set {
                 this.uuid1Field = value;
                 this.RaisePropertyChanged("uuid1");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class parametros_acuse : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private uuid uuidsField;
+        
+        private string fecha_timbrado_inicioField;
+        
+        private string fecha_timbrado_finField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public uuid uuids {
+            get {
+                return this.uuidsField;
+            }
+            set {
+                this.uuidsField = value;
+                this.RaisePropertyChanged("uuids");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fecha_timbrado_inicio {
+            get {
+                return this.fecha_timbrado_inicioField;
+            }
+            set {
+                this.fecha_timbrado_inicioField = value;
+                this.RaisePropertyChanged("fecha_timbrado_inicio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fecha_timbrado_fin {
+            get {
+                return this.fecha_timbrado_finField;
+            }
+            set {
+                this.fecha_timbrado_finField = value;
+                this.RaisePropertyChanged("fecha_timbrado_fin");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class buscar_cfdis_result : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string estatusField;
+        
+        private string cantidadField;
+        
+        private string comprobantesField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string estatus {
+            get {
+                return this.estatusField;
+            }
+            set {
+                this.estatusField = value;
+                this.RaisePropertyChanged("estatus");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string cantidad {
+            get {
+                return this.cantidadField;
+            }
+            set {
+                this.cantidadField = value;
+                this.RaisePropertyChanged("cantidad");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string comprobantes {
+            get {
+                return this.comprobantesField;
+            }
+            set {
+                this.comprobantesField = value;
+                this.RaisePropertyChanged("comprobantes");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class parametros_cfdis : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string rfc_emisorField;
+        
+        private string rfc_receptorField;
+        
+        private string fecha_emision_inicioField;
+        
+        private string fecha_emision_finField;
+        
+        private string fecha_timbrado_inicioField;
+        
+        private string fecha_timbrado_finField;
+        
+        private string canceladoField;
+        
+        private string external_idField;
+        
+        private string uuidField;
+        
+        private string folioField;
+        
+        private string serieField;
+        
+        private string limitField;
+        
+        private string offsetField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string rfc_emisor {
+            get {
+                return this.rfc_emisorField;
+            }
+            set {
+                this.rfc_emisorField = value;
+                this.RaisePropertyChanged("rfc_emisor");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string rfc_receptor {
+            get {
+                return this.rfc_receptorField;
+            }
+            set {
+                this.rfc_receptorField = value;
+                this.RaisePropertyChanged("rfc_receptor");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fecha_emision_inicio {
+            get {
+                return this.fecha_emision_inicioField;
+            }
+            set {
+                this.fecha_emision_inicioField = value;
+                this.RaisePropertyChanged("fecha_emision_inicio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fecha_emision_fin {
+            get {
+                return this.fecha_emision_finField;
+            }
+            set {
+                this.fecha_emision_finField = value;
+                this.RaisePropertyChanged("fecha_emision_fin");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fecha_timbrado_inicio {
+            get {
+                return this.fecha_timbrado_inicioField;
+            }
+            set {
+                this.fecha_timbrado_inicioField = value;
+                this.RaisePropertyChanged("fecha_timbrado_inicio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string fecha_timbrado_fin {
+            get {
+                return this.fecha_timbrado_finField;
+            }
+            set {
+                this.fecha_timbrado_finField = value;
+                this.RaisePropertyChanged("fecha_timbrado_fin");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string cancelado {
+            get {
+                return this.canceladoField;
+            }
+            set {
+                this.canceladoField = value;
+                this.RaisePropertyChanged("cancelado");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string external_id {
+            get {
+                return this.external_idField;
+            }
+            set {
+                this.external_idField = value;
+                this.RaisePropertyChanged("external_id");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string uuid {
+            get {
+                return this.uuidField;
+            }
+            set {
+                this.uuidField = value;
+                this.RaisePropertyChanged("uuid");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string folio {
+            get {
+                return this.folioField;
+            }
+            set {
+                this.folioField = value;
+                this.RaisePropertyChanged("folio");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string serie {
+            get {
+                return this.serieField;
+            }
+            set {
+                this.serieField = value;
+                this.RaisePropertyChanged("serie");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string limit {
+            get {
+                return this.limitField;
+            }
+            set {
+                this.limitField = value;
+                this.RaisePropertyChanged("limit");
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string offset {
+            get {
+                return this.offsetField;
+            }
+            set {
+                this.offsetField = value;
+                this.RaisePropertyChanged("offset");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class timbrar_zip_result : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string xmlField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string xml {
+            get {
+                return this.xmlField;
+            }
+            set {
+                this.xmlField = value;
+                this.RaisePropertyChanged("xml");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.7.3163.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.SoapTypeAttribute(Namespace="urn:WashOut")]
+    public partial class timbrar_cfdi_referencia_result : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string xmlField;
+        
+        /// <remarks/>
+        [System.Xml.Serialization.SoapElementAttribute(IsNullable=true)]
+        public string xml {
+            get {
+                return this.xmlField;
+            }
+            set {
+                this.xmlField = value;
+                this.RaisePropertyChanged("xml");
             }
         }
         
@@ -234,20 +940,68 @@ namespace Main.TimboxWS {
             return base.Channel.timbrar_cfdiAsync(username, password, sxml);
         }
         
-        public Main.TimboxWS.cancelar_cfdi_result cancelar_cfdi(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string pfxbase64, string pfxpassword) {
-            return base.Channel.cancelar_cfdi(username, password, rfcemisor, uuids, pfxbase64, pfxpassword);
+        public Main.TimboxWS.timbrar_cfdi_referencia_result timbrar_cfdi_referencia(string username, string password, string sxml, string external_id) {
+            return base.Channel.timbrar_cfdi_referencia(username, password, sxml, external_id);
         }
         
-        public System.Threading.Tasks.Task<Main.TimboxWS.cancelar_cfdi_result> cancelar_cfdiAsync(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string pfxbase64, string pfxpassword) {
-            return base.Channel.cancelar_cfdiAsync(username, password, rfcemisor, uuids, pfxbase64, pfxpassword);
+        public System.Threading.Tasks.Task<Main.TimboxWS.timbrar_cfdi_referencia_result> timbrar_cfdi_referenciaAsync(string username, string password, string sxml, string external_id) {
+            return base.Channel.timbrar_cfdi_referenciaAsync(username, password, sxml, external_id);
         }
         
-        public Main.TimboxWS.cancelar_cfdi_certs_result cancelar_cfdi_certs(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string cert_pem, string llave_pem, string llave_password) {
-            return base.Channel.cancelar_cfdi_certs(username, password, rfcemisor, uuids, cert_pem, llave_pem, llave_password);
+        public Main.TimboxWS.timbrar_zip_result timbrar_zip(string username, string password, string zipbase64) {
+            return base.Channel.timbrar_zip(username, password, zipbase64);
         }
         
-        public System.Threading.Tasks.Task<Main.TimboxWS.cancelar_cfdi_certs_result> cancelar_cfdi_certsAsync(string username, string password, string rfcemisor, Main.TimboxWS.uuid uuids, string cert_pem, string llave_pem, string llave_password) {
-            return base.Channel.cancelar_cfdi_certsAsync(username, password, rfcemisor, uuids, cert_pem, llave_pem, llave_password);
+        public System.Threading.Tasks.Task<Main.TimboxWS.timbrar_zip_result> timbrar_zipAsync(string username, string password, string zipbase64) {
+            return base.Channel.timbrar_zipAsync(username, password, zipbase64);
+        }
+        
+        public Main.TimboxWS.buscar_cfdis_result buscar_cfdis(string username, string password, Main.TimboxWS.parametros_cfdis parametros_cfdis) {
+            return base.Channel.buscar_cfdis(username, password, parametros_cfdis);
+        }
+        
+        public System.Threading.Tasks.Task<Main.TimboxWS.buscar_cfdis_result> buscar_cfdisAsync(string username, string password, Main.TimboxWS.parametros_cfdis parametros_cfdis) {
+            return base.Channel.buscar_cfdisAsync(username, password, parametros_cfdis);
+        }
+        
+        public Main.TimboxWS.buscar_acuse_recepcion_result buscar_acuse_recepcion(string username, string password, Main.TimboxWS.parametros_acuse parametros_acuse) {
+            return base.Channel.buscar_acuse_recepcion(username, password, parametros_acuse);
+        }
+        
+        public System.Threading.Tasks.Task<Main.TimboxWS.buscar_acuse_recepcion_result> buscar_acuse_recepcionAsync(string username, string password, Main.TimboxWS.parametros_acuse parametros_acuse) {
+            return base.Channel.buscar_acuse_recepcionAsync(username, password, parametros_acuse);
+        }
+        
+        public Main.TimboxWS.recuperar_comprobante_result recuperar_comprobante(string username, string password, Main.TimboxWS.uuid uuids) {
+            return base.Channel.recuperar_comprobante(username, password, uuids);
+        }
+        
+        public System.Threading.Tasks.Task<Main.TimboxWS.recuperar_comprobante_result> recuperar_comprobanteAsync(string username, string password, Main.TimboxWS.uuid uuids) {
+            return base.Channel.recuperar_comprobanteAsync(username, password, uuids);
+        }
+        
+        public Main.TimboxWS.recuperar_comprobante_referencia recuperar_comprobante_referencia(string username, string password, Main.TimboxWS.external_id external_ids) {
+            return base.Channel.recuperar_comprobante_referencia(username, password, external_ids);
+        }
+        
+        public System.Threading.Tasks.Task<Main.TimboxWS.recuperar_comprobante_referencia> recuperar_comprobante_referenciaAsync(string username, string password, Main.TimboxWS.external_id external_ids) {
+            return base.Channel.recuperar_comprobante_referenciaAsync(username, password, external_ids);
+        }
+        
+        public Main.TimboxWS.obtener_consumo_result obtener_consumo(string username, string password) {
+            return base.Channel.obtener_consumo(username, password);
+        }
+        
+        public System.Threading.Tasks.Task<Main.TimboxWS.obtener_consumo_result> obtener_consumoAsync(string username, string password) {
+            return base.Channel.obtener_consumoAsync(username, password);
+        }
+        
+        public Main.TimboxWS.consulta_rfc_result consulta_rfc(string username, string password, string rfc) {
+            return base.Channel.consulta_rfc(username, password, rfc);
+        }
+        
+        public System.Threading.Tasks.Task<Main.TimboxWS.consulta_rfc_result> consulta_rfcAsync(string username, string password, string rfc) {
+            return base.Channel.consulta_rfcAsync(username, password, rfc);
         }
     }
 }

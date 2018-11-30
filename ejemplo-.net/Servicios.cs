@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Xsl;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
+using System.Collections;
 
 namespace Main
 {
@@ -34,23 +35,32 @@ namespace Main
             }
         }
 
-        public string cancelar_cfdi(string user_name, string password, string rfc, string uuid, string pfx_base64, string pfx_password)
+        public string cancelar_cfdi(string user_name, string password, string rfc_emisor, List<FoliosCancelar> folios_cancelar,  string cer_file, string key_file)
         {
             try
             {
-                string[] arr_uuids = new string[1] { uuid };
-                TimboxWS.uuid uuids = new TimboxWS.uuid();
-                uuids.uuid1 = arr_uuids;
-                TimboxWS.timbrado_cfdi33_port cliente_cancelar = new TimboxWS.timbrado_cfdi33_portClient();
-                TimboxWS.cancelar_cfdi_result response = new TimboxWS.cancelar_cfdi_result();
-                response = cliente_cancelar.cancelar_cfdi(user_name, password, rfc, uuids, pfx_base64, pfx_password);
-                XmlDocument acuse_cancelacion = new XmlDocument();
-                acuse_cancelacion.LoadXml(response.acuse_cancelacion);
-                XmlDocument comprobantes_cancelados = new XmlDocument();
-                comprobantes_cancelados.LoadXml(response.comprobantes_cancelados);
-                Console.WriteLine(response.comprobantes_cancelados.ToString());
+                TimboxWSCancelacion.folios folios_datos = new TimboxWSCancelacion.folios();
+                var lista_folios = new List<TimboxWSCancelacion.folio>();
+            
+                foreach (var i in folios_cancelar)
+                {
+                    lista_folios.Add(new TimboxWSCancelacion.folio { uuid = i.Uuid, rfc_receptor = i.Rfc_receptor, total = i.Total });
+                }
 
-                return response.comprobantes_cancelados.ToString();
+                var folio_array = lista_folios.ToArray();
+                folios_datos.folio = folio_array;
+
+                TimboxWSCancelacion.cancelacion_portClient cliente_cancelar = new TimboxWSCancelacion.cancelacion_portClient();
+                TimboxWSCancelacion.cancelar_cfdi_result response = new TimboxWSCancelacion.cancelar_cfdi_result();
+
+                response = cliente_cancelar.cancelar_cfdi(user_name, password, rfc_emisor, folios_datos, cer_file, key_file);
+                           
+                XmlDocument acuse_cancelacion = new XmlDocument();
+                acuse_cancelacion.LoadXml(response.folios_cancelacion);
+
+                Console.WriteLine(response.folios_cancelacion.ToString());
+                return response.folios_cancelacion.ToString();
+
             }
             catch (System.ServiceModel.FaultException e)
             {
@@ -59,12 +69,100 @@ namespace Main
             }
         }
 
+        public string consultar_estatus(string user_name, string password, string uuid, string rfc_emisor, string rfc_receptor, string total)
+        {
+            try
+            {
+                TimboxWSCancelacion.cancelacion_portClient cliente_cosultar = new TimboxWSCancelacion.cancelacion_portClient();
+                TimboxWSCancelacion.consultar_estatus_result response = new TimboxWSCancelacion.consultar_estatus_result();
+
+                response = cliente_cosultar.consultar_estatus(user_name, password, uuid, rfc_emisor, rfc_receptor, total);
+
+                Console.WriteLine(response.estatus_cancelacion.ToString());
+                return response.estatus_cancelacion.ToString();
+            }
+            catch (System.ServiceModel.FaultException e)
+            {
+                Console.WriteLine("Código de error " + e.Code.Name + ": " + e.Message);
+                return "Código de error: " + e.Code.Name + "\n" + e.Message;
+            }
+        }
+
+        public string consultar_penticiones_pendientes(string user_name, string password, string rfc_recptor, string cer_file, string key_file)
+        {
+            try
+            {
+                TimboxWSCancelacion.cancelacion_portClient cliente_consultar = new TimboxWSCancelacion.cancelacion_portClient();
+                TimboxWSCancelacion.consultar_peticiones_pendientes_result response = new TimboxWSCancelacion.consultar_peticiones_pendientes_result();
+
+                response = cliente_consultar.consultar_peticiones_pendientes(user_name, password, rfc_recptor, cer_file, key_file);
+
+                Console.WriteLine(response.codestatus.ToString());
+                return response.codestatus.ToString();
+            }
+            catch (System.ServiceModel.FaultException e)
+            {
+                Console.WriteLine("Código de error " + e.Code.Name + ": " + e.Message);
+                return "Código de error: " + e.Code.Name + "\n" + e.Message;
+            }
+        }
+
+        public string procesar_respuesta(string user_name, string password, string rfc_receptor, List<FoliosRespuestas> folios_procesar, string cer_file, string key_file)
+        {
+            try
+            {
+                TimboxWSCancelacion.respuestas respuestas = new TimboxWSCancelacion.respuestas();
+                var lista_folios = new List<TimboxWSCancelacion.folios_respuestas>();
+
+                foreach (var i in folios_procesar)
+                {
+                   lista_folios.Add(new TimboxWSCancelacion.folios_respuestas { uuid = i.Uuid, rfc_emisor = i.Rfc_emisor, total = i.Total, respuesta = i.Respuesta});
+                }
+
+                var folio_array = lista_folios.ToArray();
+                respuestas.folios_respuestas = folio_array;
+
+                TimboxWSCancelacion.cancelacion_portClient cliente_procesar = new TimboxWSCancelacion.cancelacion_portClient();
+                TimboxWSCancelacion.procesar_respuesta_result response = new TimboxWSCancelacion.procesar_respuesta_result();
+
+                response = cliente_procesar.procesar_respuesta(user_name, password, rfc_receptor, respuestas, cer_file, key_file);
+
+                Console.WriteLine(response.folios.ToString());
+                return response.folios.ToString();
+            }
+            catch (System.ServiceModel.FaultException e)
+            {
+                Console.WriteLine("Código de error " + e.Code.Name + ": " + e.Message);
+                return "Código de error: " + e.Code.Name + "\n" + e.Message;
+            }
+        }
+
+        public string consultar_relacionados(string user_name, string password, string uuid, string rfc_receptor, string cer_file, string key_file)
+        {
+            try
+            {
+                TimboxWSCancelacion.cancelacion_portClient cliente_consultar_relacinados = new TimboxWSCancelacion.cancelacion_portClient();
+                TimboxWSCancelacion.consultar_documento_relacionado_result response = new TimboxWSCancelacion.consultar_documento_relacionado_result();
+
+                response = cliente_consultar_relacinados.consultar_documento_relacionado(user_name, password, uuid,rfc_receptor,cer_file,key_file);
+
+                string result = response.resultado.ToString() + " " + response.relacionados_padres.ToString() + " " + response.relacionados_hijos.ToString();
+                Console.WriteLine(result);
+
+                return result;
+            }
+            catch(System.ServiceModel.FaultException e)
+            {
+                Console.WriteLine("Código de error " + e.Code.Name + ": " + e.Message);
+                return "Código de error: " + e.Code.Name + "\n" + e.Message;
+            }
+        }
         public string generar_sello(string archivo, string path)
         {
             try
             {
                 XmlDocument doc_xml = new XmlDocument();
-                //Se carga archivo
+                //Se carga archivo  
                 doc_xml.Load(archivo);
 
                 XmlNode root = doc_xml.DocumentElement;
@@ -79,7 +177,9 @@ namespace Main
                 doc_xml.Save(archivo);
 
                 XslCompiledTransform xsl = new XslCompiledTransform();
+
                 xsl.Load(@path + "\\Archivos\\cadenaoriginal_3_3.xslt");
+
                 XmlTextWriter xmlwritter = new XmlTextWriter(@path + "\\Archivos\\cadena_original.txt", null);
                 xsl.Transform(archivo, null, xmlwritter);
                 xmlwritter.Close();
@@ -107,7 +207,6 @@ namespace Main
                 byte[] sello_bytes = key2.SignHash(hash, sha256id);
                 string sello_str = Convert.ToBase64String(sello_bytes);
 
-
                 node.Attributes.GetNamedItem("Sello").Value = sello_str;
                 doc_xml.Save(archivo);
 
@@ -124,4 +223,5 @@ namespace Main
             }
         }
     }
+
 }
