@@ -78,8 +78,10 @@ namespace Main
 
                 response = cliente_cosultar.consultar_estatus(user_name, password, uuid, rfc_emisor, rfc_receptor, total);
 
-                Console.WriteLine(response.estatus_cancelacion.ToString());
-                return response.estatus_cancelacion.ToString();
+                string result = "Codigo Estatus:"+response.codigo_estatus.ToString() + "\n Estado: " + response.estado.ToString()+ "\n";
+                Console.WriteLine(result);
+
+                return result;
             }
             catch (System.ServiceModel.FaultException e)
             {
@@ -157,6 +159,7 @@ namespace Main
                 return "Código de error: " + e.Code.Name + "\n" + e.Message;
             }
         }
+
         public string generar_sello(string archivo, string path)
         {
             try
@@ -183,12 +186,11 @@ namespace Main
                 XmlTextWriter xmlwritter = new XmlTextWriter(@path + "\\Archivos\\cadena_original.txt", null);
                 xsl.Transform(archivo, null, xmlwritter);
                 xmlwritter.Close();
-                string private_key = File.ReadAllText(@path + "\\Archivos\\CSD01_AAA010101AAA.key.pem");
 
                 //Ejecutar comandos para obtener obtener el sello
                 //System.Diagnostics.Process proc = new System.Diagnostics.Process();
                 string password = "12345678a";
-                X509Certificate2 cert = new X509Certificate2(@path + "/Archivos/CSD01_AAA010101AAA.pfx", password);
+                X509Certificate2 cert = new X509Certificate2(@path + "/Archivos/CSD01_AAA010101AAA.pfx",password);
                 RSACryptoServiceProvider key = (RSACryptoServiceProvider)cert.PrivateKey;
 
                 CspParameters cspParam = new CspParameters();

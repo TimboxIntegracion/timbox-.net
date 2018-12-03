@@ -29,9 +29,6 @@ namespace Main
         //VARIABLES
         private string userName = "AAA010101000";
         private string password = "h6584D56fVdBbSmmnB";
-  
-        private string pfxBase64 = string.Empty;
-        private string pfxPassword = "12345678a";
         private string fileStream = "\\Archivos\\ejemplo_cfdi_33_cancelada_con_aceptacion.xml";
         string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
@@ -123,14 +120,14 @@ namespace Main
 
             // Folios a cancelar
             folios = new List<FoliosCancelar>();
-            folios.Add(new FoliosCancelar() { Uuid = "F0B60888-BC93-4851-A345-03C238572A8D", Rfc_receptor = "IAD121214B34", Total = "7261.60" });
-            folios.Add(new FoliosCancelar() { Uuid = "9DDC4AB6-F1A0-4D03-B65B-39776883BA2C", Rfc_receptor = "IAD121214B34", Total = "7261.60" });
+            folios.Add(new FoliosCancelar() { Uuid = "FAE45F76-BF09-42CF-A4E5-1D868A0B242C", Rfc_receptor = "IAD121214B34", Total = "7261.60" });
+            folios.Add(new FoliosCancelar() { Uuid = "4B49ECF8-61D7-438B-A2AE-8889BB6468DB", Rfc_receptor = "IAD121214B34", Total = "7261.60" });
             
             // Folios a procesar respuesta
             // A(Aceptar la solicitud), R(Rechazar la solicitud)
             folios_respuestas = new List<FoliosRespuestas>();
-            folios_respuestas.Add(new FoliosRespuestas() { Uuid = "F0B60888-BC93-4851-A345-03C238572A8D", Rfc_emisor = "AAA010101AAA", Total = "7261.60", Respuesta = "A" });
-            folios_respuestas.Add(new FoliosRespuestas() { Uuid = "9DDC4AB6-F1A0-4D03-B65B-39776883BA2C", Rfc_emisor = "AAA010101AAA", Total = "7261.60", Respuesta = "R" });
+            folios_respuestas.Add(new FoliosRespuestas() { Uuid = "5462C83D-25EA-4F36-8C8C-B0AAB8F9C806", Rfc_emisor = "AAA010101AAA", Total = "7261.60", Respuesta = "A" });
+            folios_respuestas.Add(new FoliosRespuestas() { Uuid = "2FFF3267-E4DC-438F-87D7-38A68D0C04C4", Rfc_emisor = "AAA010101AAA", Total = "7261.60", Respuesta = "R" });
 
         }
 
@@ -218,12 +215,6 @@ namespace Main
             string file_cer_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.cer.pem");
             string file_key_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.key.pem");
 
-            //string file_cer_pem = File.ReadAllText(@path + "//Archivos//cer_pem_content.txt");
-            //string file_key_pem = File.ReadAllText(@path + "//Archivos//key_pem_content.txt");
-            //userName = "IAD121214B34";
-            //password = "gWgsRb4ixU_xUQRi6H7H";
-            //string rfc_receptor = "PZA000413788";
-
             var acceso_servicio = new Servicios();
             respuesta_pendientes = acceso_servicio.consultar_penticiones_pendientes(userName, password, rfc_receptor, file_cer_pem, file_key_pem);
             MessageBox.Show(respuesta_pendientes, "Peticiones Pendientes CFDI");
@@ -232,7 +223,6 @@ namespace Main
 
         private void button_procesar_Click(object sender, RoutedEventArgs e)
         {
-            //leer y pasar a base64 el archivo pfx
             string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
             string rfc_receptor = "AAA010101AAA";
 
@@ -258,13 +248,6 @@ namespace Main
             string rfc_receptor = "AAA010101AAA";
             string file_cer_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.cer.pem");
             string file_key_pem = File.ReadAllText(@path + "//Archivos//CSD01_AAA010101AAA.key.pem");
-
-
-            //string file_cer_pem = File.ReadAllText(@path + "//Archivos//cer_pem_content.txt");
-            //string file_key_pem = File.ReadAllText(@path + "//Archivos//key_pem_content.txt");
-            //userName = "IAD121214B34";
-            //password = "gWgsRb4ixU_xUQRi6H7H";
-            //string rfc_receptor = "PZA000413788";
 
             var acceso_servicio = new Servicios();
 
