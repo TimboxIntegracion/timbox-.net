@@ -18,6 +18,8 @@ using System.Runtime.Serialization.Formatters.Soap;
 using System.Diagnostics;
 using System.Reflection;
 using System.Data;
+using System.Xml;
+using System.Xml.Linq;
 
 namespace Main
 {
@@ -217,8 +219,18 @@ namespace Main
 
             var acceso_servicio = new Servicios();
             respuesta_pendientes = acceso_servicio.consultar_penticiones_pendientes(userName, password, rfc_receptor, file_cer_pem, file_key_pem);
-            MessageBox.Show(respuesta_pendientes, "Peticiones Pendientes CFDI");
 
+            MessageBox.Show(respuesta_pendientes, "Peticiones Pendientes CFDI");
+            XmlDocument xmldoc = new XmlDocument();
+            xmldoc.LoadXml(respuesta_pendientes);
+            XmlNodeList nodeList = xmldoc.GetElementsByTagName("UUID");
+            dataGrid2.Items.Clear();
+            foreach (XmlNode node in nodeList)
+            {
+                Console.WriteLine(node.InnerText);
+                var data = new { uuid_pendientes_grid = node.InnerText };
+                dataGrid2.Items.Add(data);
+            }        
         }
 
         private void button_procesar_Click(object sender, RoutedEventArgs e)

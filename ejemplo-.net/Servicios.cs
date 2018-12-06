@@ -10,6 +10,8 @@ using System.Xml.Xsl;
 using System.Security.Cryptography;
 using System.Security.Cryptography.X509Certificates;
 using System.Collections;
+using System.ServiceModel;
+using System.ServiceModel.Channels;
 
 namespace Main
 {
@@ -96,11 +98,12 @@ namespace Main
             {
                 TimboxWSCancelacion.cancelacion_portClient cliente_consultar = new TimboxWSCancelacion.cancelacion_portClient();
                 TimboxWSCancelacion.consultar_peticiones_pendientes_result response = new TimboxWSCancelacion.consultar_peticiones_pendientes_result();
-
                 response = cliente_consultar.consultar_peticiones_pendientes(user_name, password, rfc_recptor, cer_file, key_file);
 
+                Console.WriteLine(response.uuids.ToString());
                 Console.WriteLine(response.codestatus.ToString());
-                return response.codestatus.ToString();
+                return response.uuids.ToString();
+
             }
             catch (System.ServiceModel.FaultException e)
             {
@@ -159,7 +162,6 @@ namespace Main
                 return "Código de error: " + e.Code.Name + "\n" + e.Message;
             }
         }
-
         public string generar_sello(string archivo, string path)
         {
             try
