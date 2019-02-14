@@ -162,6 +162,8 @@ namespace Main
                 return "Código de error: " + e.Code.Name + "\n" + e.Message;
             }
         }
+
+
         public string generar_sello(string archivo, string path)
         {
             try
@@ -175,10 +177,49 @@ namespace Main
                 manager.AddNamespace("ns", "http://www.sat.gob.mx/cfd/3");
                 XmlNode node = doc_xml.DocumentElement.SelectSingleNode("//ns:Comprobante", manager);
 
+                string cp = node.Attributes.GetNamedItem("LugarExpedicion").Value;
+                string time_zone = "";
+                var postalcodes_file = File.ReadLines(@path + "\\Archivos\\cat_postal_codes.csv");
+
+                // Microsoft Time Zone Index Values
+                // Url: https://support.microsoft.com/en-us/help/973627/microsoft-time-zone-index-values
+                foreach (var line in postalcodes_file)
+                {
+                    string cp_file = line.Split(',')[1];
+                    if (cp_file == cp)
+                    {
+                        time_zone = line.Split(',')[6];
+                        switch (time_zone)
+                        {
+                         case "America/Mexico_City":
+                                time_zone = "Central Standard Time (Mexico)";
+                            break;
+
+                         case "America/Mazatlan":
+                                time_zone = "Mountain Standard Time (Mexico)";
+                            break;
+
+                         case "America/Tijuana":
+                                time_zone = "Pacific Standard Time (Mexico)";
+                           break;
+                         case "America/Cancun":
+                                time_zone = "Eastern Standard Time";
+                                break;
+                         default:
+                                time_zone = "Central Standard Time (Mexico)";
+                                break;
+                        } 
+                    }
+       
+                }
+
+                DateTime fecha_hoy = DateTime.Now;
+                var timezone_info = TimeZoneInfo.FindSystemTimeZoneById(time_zone);
+                var convertir_fecha_hoy = TimeZoneInfo.ConvertTime(fecha_hoy, timezone_info);
+                string fecha = convertir_fecha_hoy.ToString("yyyy-MM-ddTHH:mm:ss");
+
                 //Se agrega la fecha actual al momento de generar cfdi
-                string fecha = node.Attributes.GetNamedItem("Fecha").Value;
-                string fecha_hoy = DateTime.Now.ToString("yyyy-MM-ddTHH:mm:ss");
-                node.Attributes.GetNamedItem("Fecha").Value = fecha_hoy;
+                node.Attributes.GetNamedItem("Fecha").Value = fecha;
                 doc_xml.Save(archivo);
 
                 XslCompiledTransform xsl = new XslCompiledTransform();
