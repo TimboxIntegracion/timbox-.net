@@ -202,3 +202,34 @@ catch(System.ServiceModel.FaultException e)
     return "Código de error: " + e.Code.Name + "\n" + e.Message;
 }
 ```
+
+## Validador CFDI
+Para realizar la petición de validación, solo es necesario crear un cliente y enviarle los parametros correspondientes a la función validar_cfdi para hacer la petición de validar al webservice:
+```
+try
+{
+    TimboxWSValidador.comprobante comprobante = new TimboxWSValidador.comprobante();
+    var lista_combrobantes = new List<TimboxWSValidador.Comprobante>();
+
+    foreach (var i in xmls)
+    {
+        lista_combrobantes.Add(new TimboxWSValidador.Comprobante { sxml = i.Xml, external_id = i.ExternalId });
+    }
+
+     var xml_array = lista_combrobantes.ToArray();
+     comprobante.Comprobante = xml_array;
+
+     TimboxWSValidador.valida_cfdi_portClient cliente_validar_cfdi = new TimboxWSValidador.valida_cfdi_portClient();
+     TimboxWSValidador.validar_cfdi_result response = new TimboxWSValidador.validar_cfdi_result();
+                
+     response = cliente_validar_cfdi.validar_cfdi(user_name, password, comprobante);
+
+     string result = response.resultados.ToString();
+     return result;
+}
+catch (System.ServiceModel.FaultException e)
+{
+    Console.WriteLine("Código de error " + e.Code.Name + ": " + e.Message);
+    return "Código de error: " + e.Code.Name + "\n" + e.Message;
+}
+```

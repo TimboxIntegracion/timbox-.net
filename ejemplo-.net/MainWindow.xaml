@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Main"
         mc:Ignorable="d"
-        Title="Ejemplo Conexión" Height="529.5" Width="700" Icon="favicon.ico"
+        Title="Ejemplo Conexión" Height="529.5" Width="800" Icon="favicon.ico"
         WindowStartupLocation="CenterScreen">
     <Grid Margin="0 0 0 5">
         <TabControl>
@@ -189,6 +189,31 @@
 
                         <TextBox Grid.Row="7" x:Name="TextBox_uuid_Relacionados" Grid.ColumnSpan="3" Text="{Binding uuid_relacionadosTextBox}" Margin="31,55,182,177" FontSize="18" Grid.Column="1" />
                         <Button Grid.Row="7" x:Name="button_consultar_relacionados" Content="Consultar" HorizontalAlignment="Left" Height="47" Margin="0,302,0,-111" VerticalAlignment="Top" Width="160" Click="button_consultar_relacionados_Click" FontSize="16" Grid.Column="2" Grid.ColumnSpan="2"/>
+                    </Grid>
+                </StackPanel>
+            </TabItem>
+            <TabItem Header="Validador" Width="93" IsSelected="{Binding TabValidadorSelected}">
+                <StackPanel>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="96*"/>
+                            <ColumnDefinition Width="169*"/>
+                            <ColumnDefinition Width="417*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="200"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Grid.Row="1" x:Name="textBlockValidador2" Height="31" Margin="10 10 0 0" TextWrapping="Wrap" Text="Este es un ejemplo de validacion de XML" VerticalAlignment="Top" FontSize="18" Grid.ColumnSpan="4"/>
+                        <TextBlock Grid.Row="7" x:Name="textBlockValidador3" HorizontalAlignment="Left" Height="32" Margin="10,10,0,0" TextWrapping="Wrap" Text="De click en el boton (Validar) para probar:" VerticalAlignment="Top" Width="485" FontSize="18" Grid.ColumnSpan="4"/>
+
+                        <Button Grid.Row="4" x:Name="button_Validador" Content="Validar" HorizontalAlignment="Left" Height="47" Margin="105,332,0,-179" VerticalAlignment="Top" Width="160" Click="button_validar_cfdi_Click" FontSize="16" Grid.Column="2"/>
+                        <Button Grid.Row="4" x:Name="button_Validador_limpiar" Content="Limpiar" HorizontalAlignment="Left" Height="47" Margin="69,332,0,-179" VerticalAlignment="Top" Width="160" Click="button_validar_cfdi_limpiar_Click" FontSize="16" Grid.ColumnSpan="2" Grid.Column="1"/>
+                        <TextBox Grid.Row="4" Grid.ColumnSpan="3" x:Name="TextBox_resultado2" IsReadOnly="True" Text="{Binding ResultadoTextBox}" TextWrapping="Wrap" MaxHeight="500" Margin="10,42,10,-83" HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" VerticalAlignment="Stretch" FontSize="16" TextChanged="TextBox_resultado_TextChanged"/>
+
                     </Grid>
                 </StackPanel>
             </TabItem>

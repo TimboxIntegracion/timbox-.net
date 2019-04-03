@@ -31,7 +31,7 @@ namespace Main
         //VARIABLES
         private string userName = "AAA010101000";
         private string password = "h6584D56fVdBbSmmnB";
-        private string fileStream = "\\Archivos\\ejemplo_cfdi_33_cancelada_con_aceptacion.xml";
+        private string fileStream = "\\Archivos\\ejemplo_cfdi_33.xml";
         string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
 
         private string xmlBase64 = string.Empty;
@@ -41,6 +41,7 @@ namespace Main
         private string respuesta_pendientes = string.Empty;
         private string respuesta_relacionados = string.Empty;
         private string respuesta_procesar = string.Empty;
+        private string validar_xml = string.Empty;
         private List<FoliosCancelar> folios;
         private List<FoliosRespuestas> folios_respuestas;
 
@@ -283,9 +284,44 @@ namespace Main
         private void TextBox_resultado_TextChanged(object sender, TextChangedEventArgs e)
         {
         }
+        private void TextBox_resultado2_TextChanged(object sender, TextChangedEventArgs e)
+        {
+        }
 
         private void dataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+        }
+
+        private void button_validar_cfdi_Click(object sender, RoutedEventArgs e)
+        {
+            string path = System.IO.Path.GetDirectoryName(System.IO.Path.GetDirectoryName(System.IO.Directory.GetCurrentDirectory()));
+            string file_xml = File.ReadAllText(@path + "//Archivos//ejemplo_cfdi_33.xml");
+
+            byte[] base64 = Encoding.UTF8.GetBytes(file_xml);
+            string xml_base64 = Convert.ToBase64String(base64);
+
+            // Comprobantes a validar
+            List<Comprobante> xml_lista = new List<Comprobante>();
+            xml_lista.Add(new Comprobante() { Xml = xml_base64, ExternalId = "1" });
+            xml_lista.Add(new Comprobante() { Xml = xml_base64, ExternalId = "2" });
+            xml_lista.Add(new Comprobante() { Xml = xml_base64, ExternalId = "3" });
+
+            var acceso_servicio = new Servicios();
+
+            if (!string.IsNullOrEmpty(xml_lista.ToString()))
+            {
+                validar_xml = acceso_servicio.validardor_cfdi(userName, password, xml_lista);
+                TextBox_resultado2.Text = validar_xml.ToString();
+            }
+            else
+            {
+                MessageBox.Show("Lista de comprobantes vacia", "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+        }
+
+        private void button_validar_cfdi_limpiar_Click(object sender, RoutedEventArgs e)
+        {
+            TextBox_resultado2.Text = String.Empty;
         }
     }
 }

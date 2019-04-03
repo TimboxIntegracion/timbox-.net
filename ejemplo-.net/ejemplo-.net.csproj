@@ -65,6 +65,11 @@
     <Compile Include="DataListConverter.cs" />
     <Compile Include="FoliosCancelar.cs" />
     <Compile Include="FoliosRespuestas.cs" />
+    <Compile Include="Service References\TimboxWSValidador\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Service References\TimboxWSCancelacion\Reference.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -76,6 +81,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="Servicios.cs" />
+    <Compile Include="Comprobante.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -115,6 +121,10 @@
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
     <AppDesigner Include="Properties\" />
+    <None Include="Service References\TimboxWSValidador\Main.TimboxWSValidador.validar_cfdi_result.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\TimboxWSValidador\valida_cfdi.wsdl" />
     <None Include="Service References\TimboxWSCancelacion\cancelacion.wsdl" />
     <None Include="Service References\TimboxWSCancelacion\Main.TimboxWSCancelacion.cancelar_cfdi_result.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
@@ -169,6 +179,7 @@
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
+    <WCFMetadataStorage Include="Service References\TimboxWSValidador\" />
     <WCFMetadataStorage Include="Service References\TimboxWSCancelacion\" />
     <WCFMetadataStorage Include="Service References\TimboxWS\" />
   </ItemGroup>
@@ -195,6 +206,18 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Service References\TimboxWSCancelacion\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimboxWSValidador\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimboxWSValidador\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Service References\TimboxWSValidador\Reference.svcmap">
       <Generator>WCF Proxy Generator</Generator>
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>

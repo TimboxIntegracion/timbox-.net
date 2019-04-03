@@ -163,6 +163,36 @@ namespace Main
             }
         }
 
+        public string validardor_cfdi(string user_name, string password, List<Comprobante> xmls)
+        {
+            try
+            {
+                TimboxWSValidador.comprobante comprobante = new TimboxWSValidador.comprobante();
+                var lista_combrobantes = new List<TimboxWSValidador.Comprobante>();
+
+                foreach (var i in xmls)
+                {
+                    lista_combrobantes.Add(new TimboxWSValidador.Comprobante { sxml = i.Xml, external_id = i.ExternalId });
+                }
+
+                var xml_array = lista_combrobantes.ToArray();
+                comprobante.Comprobante = xml_array;
+
+                TimboxWSValidador.valida_cfdi_portClient cliente_validar_cfdi = new TimboxWSValidador.valida_cfdi_portClient();
+                TimboxWSValidador.validar_cfdi_result response = new TimboxWSValidador.validar_cfdi_result();
+                
+                response = cliente_validar_cfdi.validar_cfdi(user_name, password, comprobante);
+
+                string result = response.resultados.ToString();
+                return result;
+            }
+            catch (System.ServiceModel.FaultException e)
+            {
+                Console.WriteLine("Código de error " + e.Code.Name + ": " + e.Message);
+                return "Código de error: " + e.Code.Name + "\n" + e.Message;
+            }
+
+        }
 
         public string generar_sello(string archivo, string path)
         {
