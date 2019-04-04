@@ -219,28 +219,8 @@ namespace Main
                     if (cp_file == cp)
                     {
                         time_zone = line.Split(',')[6];
-                        switch (time_zone)
-                        {
-                         case "America/Mexico_City":
-                                time_zone = "Central Standard Time (Mexico)";
-                            break;
-
-                         case "America/Mazatlan":
-                                time_zone = "Mountain Standard Time (Mexico)";
-                            break;
-
-                         case "America/Tijuana":
-                                time_zone = "Pacific Standard Time (Mexico)";
-                           break;
-                         case "America/Cancun":
-                                time_zone = "Eastern Standard Time";
-                                break;
-                         default:
-                                time_zone = "Central Standard Time (Mexico)";
-                                break;
-                        } 
+                        break;
                     }
-       
                 }
 
                 DateTime fecha_hoy = DateTime.Now;
