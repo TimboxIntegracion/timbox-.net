@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:WashOut" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap-enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns="http://schemas.xmlsoap.org/wsdl/" name="retencion" targetNamespace="urn:WashOut" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:WashOut">
+      <xsd:complexType name="timbrar_retencion_result">
+        <xsd:sequence>
+          <xsd:element name="xml" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="uuid">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" maxOccurs="unbounded" name="Uuid" nillable="true" type="tns:Uuid" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Uuid">
+        <xsd:sequence>
+          <xsd:element name="uuid" nillable="true" type="xsd:string" />
+          <xsd:element name="motivo" nillable="true" type="xsd:string" />
+          <xsd:element name="folio_sustituto" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="cancelar_retencion_result">
+        <xsd:sequence>
+          <xsd:element name="acuse_cancelacion" nillable="true" type="xsd:string" />
+          <xsd:element name="comprobantes_cancelados" nillable="true" type="xsd:string" />
+          <xsd:element name="estatus_cancelacion" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="cancelar_masivo_result">
+        <xsd:sequence>
+          <xsd:element name="acuse_cancelacion" nillable="true" type="xsd:string" />
+          <xsd:element name="folio_seguimiento" nillable="true" type="xsd:string" />
+          <xsd:element name="estatus_cancelacion" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="consulta_acuse_cancelacion_result">
+        <xsd:sequence>
+          <xsd:element name="acuse_cancelacion" nillable="true" type="xsd:string" />
+          <xsd:element name="comprobantes_cancelados" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="timbrar_retencion">
+    <wsdl:part xsi:nillable="true" name="username" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="password" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="sxml" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="timbrar_retencion_response">
+    <wsdl:part xsi:nillable="true" name="timbrar_retencion_result" type="tns:timbrar_retencion_result" />
+  </wsdl:message>
+  <wsdl:message name="cancelar_retencion">
+    <wsdl:part xsi:nillable="true" name="username" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="password" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="rfcemisor" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="uuids" type="tns:uuid" />
+    <wsdl:part xsi:nillable="true" name="cert_pem" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="llave_pem" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="cancelar_retencion_response">
+    <wsdl:part xsi:nillable="true" name="cancelar_retencion_result" type="tns:cancelar_retencion_result" />
+  </wsdl:message>
+  <wsdl:message name="cancelar_masivo">
+    <wsdl:part xsi:nillable="true" name="username" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="password" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="rfcemisor" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="uuids" type="tns:uuid" />
+    <wsdl:part xsi:nillable="true" name="cert_pem" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="llave_pem" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="cancelar_masivo_response">
+    <wsdl:part xsi:nillable="true" name="cancelar_masivo_result" type="tns:cancelar_masivo_result" />
+  </wsdl:message>
+  <wsdl:message name="consulta_acuse_cancelacion">
+    <wsdl:part xsi:nillable="true" name="username" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="password" type="xsd:string" />
+    <wsdl:part xsi:nillable="true" name="folioSeguimiento" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="consulta_acuse_cancelacion_response">
+    <wsdl:part xsi:nillable="true" name="consulta_acuse_cancelacion_result" type="tns:consulta_acuse_cancelacion_result" />
+  </wsdl:message>
+  <wsdl:portType name="retencion_port">
+    <wsdl:operation name="timbrar_retencion">
+      <wsdl:input message="tns:timbrar_retencion" />
+      <wsdl:output message="tns:timbrar_retencion_response" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelar_retencion">
+      <wsdl:input message="tns:cancelar_retencion" />
+      <wsdl:output message="tns:cancelar_retencion_response" />
+    </wsdl:operation>
+    <wsdl:operation name="cancelar_masivo">
+      <wsdl:input message="tns:cancelar_masivo" />
+      <wsdl:output message="tns:cancelar_masivo_response" />
+    </wsdl:operation>
+    <wsdl:operation name="consulta_acuse_cancelacion">
+      <wsdl:input message="tns:consulta_acuse_cancelacion" />
+      <wsdl:output message="tns:consulta_acuse_cancelacion_response" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="retencion_binding" type="tns:retencion_port">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="timbrar_retencion">
+      <soap:operation soapAction="timbrar_retencion" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelar_retencion">
+      <soap:operation soapAction="cancelar_retencion" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancelar_masivo">
+      <soap:operation soapAction="cancelar_masivo" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="consulta_acuse_cancelacion">
+      <soap:operation soapAction="consulta_acuse_cancelacion" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="urn:WashOut" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="service">
+    <wsdl:port name="retencion_port" binding="tns:retencion_binding">
+      <soap:address location="https://staging.ws.timbox.com.mx/retencion/action" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
