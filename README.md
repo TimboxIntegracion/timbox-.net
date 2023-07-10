@@ -3,11 +3,6 @@ Ejemplo con la integración al Webservice de Timbox.
 
 Se deberá agregar la referencia del WSDL al proyecto, para hacer uso de los métodos expuestos en el Webservice:
 
-Webservice de Timbrado 3.3:
-- [Timbox Pruebas](https://staging.ws.timbox.com.mx/timbrado_cfdi33/wsdl)
-
-- [Timbox Producción](https://sistema.timbox.com.mx/timbrado_cfdi33/wsdl)
-
 Webservice de Timbrado 4.0:
 - [Timbox Pruebas](https://staging.ws.timbox.com.mx/timbrado_cfdi33/wsdl)
 
@@ -51,33 +46,6 @@ Timbrado_40_Pruebas.timbrar_cfdi_result response = new Timbrado_40_Pruebas.timbr
 response = timbox_cliente.timbrar_cfdi(user_name, password, xml_base64);
 ```
 
-## Timbrar CFDI 3.3
-### Generacion de Sello
-Para generar el sello se necesita: El archivo *.pfx y el XSLT del SAT (cadenaoriginal_3_3.xslt).El XSLT del SAT se utiliza para poder transformar el XML y obtener la cadena original.
-
-La cadena original se utiliza para obtener el sello, utilizando la libreria de encriptación de .NET (System.Security.Cryptography) y se codifica en base64. 
-
-Una vez generado el sello, se actualiza en el XML para que este sea codificado y enviado al servicio de timbrado.
-Esto se logra mandando llamar el método de generar_sello en la clase de Servicios:
-```
-var acceso_servicio = new Servicios();
-...
-xmlBase64 = acceso_servicio.generar_sello(path_xml, path);
-```
-### Timbrado
-Para hacer una petición de timbrado es necesario enviar las credenciales asignadas y enviar el xml del CFDI a timbrar convertido en una cadena en base64:
-
-```
-//Crear el objeto cliente
-TimboxWS.timbrado_portClient cliente_timbrar = new TimboxWS.timbrado_portClient();
-
-//Crear el objeto de la respuesta
-TimboxWS.timbrar_cfdi_result response = new TimboxWS.timbrar_cfdi_result();
-
-//llamar el método de timbrado enviándole los 
-//parámetros con las credenciales y el xml en formato base64
-response = cliente_timbrar.timbrar_cfdi(user_name, password, xml_base64);
-```
 ## Cancelar CFDI
 A partir del 2022 será necesario señalar el motivo de la cancelación de los comprobantes. Al seleccionar como motivo de cancelación la clave 01 “Comprobante emitido con errores con relación deberá relacionarse el folio fiscal del comprobante que sustituye al cancelado. Se actualizan los plazos para realizar la cancelación de facturas.
 
