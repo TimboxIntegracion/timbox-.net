@@ -4,9 +4,9 @@ Ejemplo con la integración al Webservice de Timbox.
 Se deberá agregar la referencia del WSDL al proyecto, para hacer uso de los métodos expuestos en el Webservice:
 
 Webservice de Timbrado 4.0:
-- [Timbox Pruebas](https://staging.ws.timbox.com.mx/timbrado_cfdi33/wsdl)
+- [Timbox Pruebas](https://staging.ws.timbox.com.mx/timbrado_cfdi40/wsdl)
 
-- [Timbox Producción](https://sistema.timbox.com.mx/timbrado_cfdi33/wsdl)
+- [Timbox Producción](https://sistema.timbox.com.mx/timbrado_cfdi40/wsdl)
 
 Webservice de Cancelación:
 
